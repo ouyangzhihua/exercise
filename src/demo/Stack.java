@@ -28,12 +28,15 @@ public class Stack
 	    
 	    public int deleteHead() 
 	    {
-	    	while(!stack1.isEmpty())
-	    		stack2.push(stack1.pop());
 	    	if(stack2.isEmpty())
-	    		return -1;
-	    	else 
-	    		return stack2.pop();
+	        {
+	            while(!stack1.isEmpty())
+	                stack2.push(stack1.pop());
+	        }
+	        if(stack2.isEmpty())
+	            return -1;
+	        else
+	            return stack2.pop();
 	    }
 	}
 
