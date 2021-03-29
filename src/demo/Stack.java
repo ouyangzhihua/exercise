@@ -12,19 +12,28 @@ public class Stack
 		 * 
 		 * 思路：
 		 * */
-
+		
+		Deque<Integer> stack1;
+    	Deque<Integer> stack2; 
 	    public CQueue() 
 	    {
-	    	Deque<Integer> stack1;
-	    	Deque<Integer> stack2; 
+	    	stack1 = new LinkedList<Integer>();
+	    	stack1 = new LinkedList<Integer>();
 	    }
 	    
-	    public void appendTail(int value) {
-
+	    public void appendTail(int value) 
+	    {
+	    	stack1.push(value);
 	    }
 	    
-	    public int deleteHead() {
-
+	    public int deleteHead() 
+	    {
+	    	while(!stack1.isEmpty())
+	    		stack2.push(stack1.pop());
+	    	if(stack2.isEmpty())
+	    		return -1;
+	    	else 
+	    		return stack2.pop();
 	    }
 	}
 
