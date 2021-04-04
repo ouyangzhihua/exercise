@@ -54,6 +54,8 @@ public class Detail
 		numberOf9--;	//ÔÚ»ØËİÇ°»Ö¸´numberOf9
 	}
 	
+	
+	
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
