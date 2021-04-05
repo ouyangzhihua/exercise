@@ -76,6 +76,89 @@ public class BibaryTree {
 		return root;
 	}
 	
+	
+	//--------------------------------------------------------------------------------
+	
+	public boolean isSymmetric(TreeNode root)
+	{
+		/*
+		 * 剑指 Offer 28. 对称的二叉树
+		 * 请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+		 * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+		 * 
+		 * 思路：
+		 * 方法1：递归
+		 * 二叉树对称则有：1，root.left.val = root.right.val
+		 * 2, l.left.val = r.right.val
+		 * 3, l.right.val = r.left.val
+		 * 可用递归从顶至下，其是否对称
+		 * 步骤：
+		 * 输入边界值处理：root == null, return true
+		 * 递归终止条件：1，L和R同时越过叶节点，此时整树对称
+		 * 2，L或R有一个先越过叶节点
+		 * 3，当前L节点值！=当前R节点值
+		 * 递归工作：
+		 * recur(l.left,r.right)
+		 * recur(l.right, r.left)
+		 * 返回值：recur(l.left,r.right) && recur(l.right, r.left)
+		 * 复杂度分析：
+		 * */
+		if(root == null)
+			return true;
+		else
+			return recur(root.left, root.right);
+	}
+	private boolean recur(TreeNode l, TreeNode r)
+	{
+		if(l == null && r == null)
+			return true;
+		else if(l == null || r == null || l.val != r.val)
+			return false;
+		else
+			return recur(l.left, r.right) && recur(l.right, r.left);
+	}
+	
+	
+	//-------------------------------------------------------------------------------
+	
+	public List<List<Integer>> levelOrder(TreeNode root) 
+	{
+		/*
+		 * 剑指 Offer 32 - II. 从上到下打印二叉树 II
+		 * 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+		 * 
+		 * 思路：
+		 * 方法1：广度优先搜索
+		 * 每一层打印一行可以通过广度优先搜索找到一层的所有节点。
+		 * 广度优先搜索通常利用队列先进先出的特性实现
+		 * 
+		 * 步骤：
+		 * 特例处理：root=null，返回空列表
+		 * 初始化：
+		 * BFS循环条件：
+		 * 
+		 * */
+		List<List<Integer>> res = new ArrayList<>();
+		Queue<TreeNode> que = new LinkedList<>();
+		if(root != null)
+			que.add(root);
+		while(!que.isEmpty())
+		{
+			List<Integer> temp = new ArrayList<>();
+			for(int i = que.size(); i > 0; i--)
+			{
+				TreeNode node = que.poll();
+				temp.add(node.val);
+				if(node.left != null)
+					que.add(node.left);
+				if(node.right != null)
+					que.add(node.right);
+			}
+			res.add(temp);
+		}
+		return res;
+	}
+	
 	public static void main(String[] args)
 	{
 		int[] pre = {3, 9, 20, 15, 7};
