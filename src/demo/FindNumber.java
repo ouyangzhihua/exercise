@@ -4,7 +4,10 @@
 步骤：
 */
 package demo;
-import java.util.*;
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Random;
 
 public class FindNumber 
 {
@@ -177,6 +180,114 @@ public class FindNumber
 				high--;
 		}
 		return numbers[low];
+	}
+	
+	//-------------------------------------------------------------------------------
+	
+	public int[] getLeastNumbers(int[] arr, int k)
+	{
+		/*
+		 * 剑指 Offer 40. 最小的k个数
+		 * 输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+		 * 
+		 * 思路：
+		 * 方法1：堆
+		 * 利用堆后进先出的特性，依次先将前k个小的数压到堆栈中，先将第一个数压入，每压入一个就与前一个压入堆栈中数比较，若小则弹出前一个再压入
+		 * 否则就直接压入，直至k个。后续在遍历数组剩余的数，维护堆栈即可
+		 * 特例处理：arr=null，
+		 * k<=0
+		 * k>arr.length
+		 * 
+		 * 方法2：快排思想
+		 * 
+		 * */
+		
+		//方法1：堆
+		/*
+		int[] res = new int[k];
+		if(arr == null || k <= 0)
+			return res;
+		if(k >= arr.length)
+			return arr;
+		
+		PriorityQueue<Integer> que = new PriorityQueue<Integer>(new Comparator<Integer>()
+		{
+				public int compare(Integer num1, Integer num2)
+				{
+					return num2-num1;
+				}
+		});	//优先队列
+		for(int i = 0; i < k; i++)
+		{
+			que.offer(arr[i]);
+		}
+		for(int i = k; i < arr.length; i++)
+		{
+			if(que.peek() > arr[i])
+			{
+				que.poll();
+				que.offer(arr[i]);
+			}
+		}
+		for(int i = 0; i < k; i++)
+		{
+			res[i] = que.poll();
+		}
+		return res;
+		*/
+		
+		//方法2：快排思想
+		int[] res = new int[k];
+		if(arr == null || k <= 0)
+			return res;
+		if(k >= arr.length)
+			return arr;
+		randomizedSlect(arr, 0, arr.length-1, k);
+		for(int i = 0; i < k; i++)
+		{
+			res[i] = arr[i];
+		}
+		return res;	
+	}
+	private void randomizedSlect(int[] arr, int left, int right, int k)
+	{
+		if(left >= right)
+			return;		//结束
+		int pos = randomizedPartition(arr, left, right);
+		int num = pos -left + 1;
+		if(k == num)
+			return;
+		else if(k < num)
+			randomizedSlect(arr, left, pos-1, k);
+		else
+			randomizedSlect(arr, pos+1, right, k-num);
+	}
+	private int randomizedPartition(int[] arr, int left, int right)
+	{
+		int i = new Random().nextInt(right - left + 1) + left;
+		swap(arr, i, right);
+		return partition(arr, left, right);
+	}
+	private int partition(int[] arr, int left, int right)
+	{
+		int pivot = arr[right];
+		int i = left - 1;
+		for(int j = left; j < right; j++)
+		{
+			if(arr[j] <= pivot)
+			{
+				i++;
+				swap(arr, i, j);
+			}
+		}
+		swap(arr, i+1, right);
+		return i+1;
+	}
+	private void swap(int[] arr, int i, int j)
+	{
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 	
 	public static void main(String[] args)
