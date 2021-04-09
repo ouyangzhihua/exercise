@@ -5,7 +5,7 @@ public class SingleLinkedList1 {
 	public class ListNode {
 		int val;
 		ListNode next;
-		ListNode(int x) { val = x; }
+		ListNode(int x) { val = x; next = null;}
 	}
 	public ListNode getKthFromEnd(ListNode head, int k)
 	{
@@ -38,6 +38,8 @@ public class SingleLinkedList1 {
 		}
 		return latter;
 	}
+	
+	//-----------------------------------------------------------------------------------
 	
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2)
 	{
@@ -73,6 +75,39 @@ public class SingleLinkedList1 {
 		return m.next;
 	}
 	
+	//-------------------------------------------------------------------------------
+	
+	public ListNode getIntersectionNode(ListNode headA, ListNode headB)
+	{
+		/*
+		 * 剑指 Offer 52. 两个链表的第一个公共节点
+		 * 输入两个链表，找出它们的第一个公共节点
+		 * 
+		 * 思路：
+		 * 方法1：双指针
+		 * 两个链表的交点之后所有节点都是一样的，只有交点之前的节点不同。
+		 * 用两个指针分别从headA和headB出发遍历链表，如果到达链表尾则跳到另一链表头节点继续遍历，当两指针相遇时则为相交节点
+		 * 
+		 * 步骤：
+		 * 特例处理：输入为空
+		 * */
+		if(headA == null || headB == null)
+			return null;
+		ListNode ha = headA;
+		ListNode hb = headB;
+		while(ha != hb)
+		{
+			if(ha != null)
+				ha = ha.next;
+			else
+				ha = headB;
+			if(hb != null)
+				hb = hb.next;
+			else
+				hb = headA;
+		}
+		return ha;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -290,6 +290,81 @@ public class FindNumber
 		arr[j] = temp;
 	}
 	
+	//-----------------------------------------------------------------------------------
+	
+	public int search(int[] nums, int target)
+	{
+		/*
+		 * 剑指 Offer 53 - I. 在排序数组中查找数字 I
+		 * 统计一个数字在排序数组中出现的次数。
+		 * 
+		 * 思路：
+		 * 方法1：二分法
+		 * 
+		 * 步骤：
+		 * 特例处理：nums=null, nums.length == 0
+		 * */
+		if(nums == null || nums.length == 0)
+			return 0;
+		int low  = 0;
+		int high = nums.length - 1;
+		int count = 0;
+		while(low < high)
+		{
+			int pivot = (low + high)/2;
+			if(target <= nums[pivot])
+				high = pivot;
+			else
+				low = pivot + 1;
+		}
+		for(int i = low; i <nums.length; i++)
+			if(nums[i] == target)
+				count++;
+		return count;
+	}
+	
+	//----------------------------------------------------------------------------
+	
+	public int missingNumber(int[] nums) 
+	{
+		/*
+		 * 剑指 Offer 53 - II. 0～n-1中缺失的数字
+		 * 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。
+		 * 在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
+		 * 
+		 * 思路：
+		 * 方法1：遍历
+		 * 步骤：
+		 * 特例处理：nums=null, nums.length == 0
+		 * 方法2：二分法
+		 * */
+		
+		//方法1：遍历
+		/*
+		if(nums == null || nums.length == 0)
+			return -1;
+		for(int i = 0; i < nums.length; i++)
+			if(nums[i] != i)
+				return i;
+		return -1;
+		*/
+		
+		//方法2：二分法
+		if(nums == null || nums.length == 0)
+			return -1;
+		int low = 0;
+		int high = nums.length - 1;
+		while(low <= high)
+		{
+			int pivot = (low + high)/2;
+			if(nums[pivot] != pivot)
+				high = pivot - 1;
+			else
+				low = pivot + 1;
+		}
+		return low;
+	}
+	
 	public static void main(String[] args)
 	{
 		int[][] arr = {{1,4,7, 11, 15},{2,   5,  8, 12, 19},{3,   6,  9, 16, 22},{10, 13, 14, 17, 24}};

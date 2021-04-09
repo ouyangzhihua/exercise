@@ -159,6 +159,84 @@ public class BibaryTree {
 		return res;
 	}
 	
+	//------------------------------------------------------------------------------
+	
+	int k;
+	int res;
+	public int kthLargest(TreeNode root, int k)
+	{
+		/*
+		 * 剑指 Offer 54. 二叉搜索树的第k大节点
+		 * 给定一棵二叉搜索树，请找出其中第k大的节点。
+		 * 
+		 * 思路：
+		 * 方法1：中序遍历倒序
+		 * 二叉搜索树的中序遍历为递增序列
+		 * 步骤：
+		 * 特例处理：
+		 * 
+		 * */
+		if(root == null || k < 1)
+			return -1;
+		this.k = k;
+		deepFirstSearch(root);
+		return res;
+	}
+	private void deepFirstSearch(TreeNode root)
+	{
+		if(root == null || k==0)
+			return;
+		deepFirstSearch(root.right);
+		if(--k == 0)
+			res = root.val;
+		deepFirstSearch(root.left);
+	}
+	
+	//---------------------------------------------------------------------------
+	
+	public int maxDepth(TreeNode root)
+	{
+		/*
+		 * 剑指 Offer 55 - I. 二叉树的深度
+		 * 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+		 * 
+		 * 思路：树的遍历总体分为两类：深度优先搜索（DFS），广度优先搜索（BFS）
+		 * 常见的DFS：前序遍历，中序遍历， 后序遍历
+		 * 常见的BFS：层序遍历
+		 * 方法1：后续遍历
+		 * 
+		 * 方法2：层序遍历
+		 * */
+		//方法1：后续遍历
+		/*
+		if(root == null)
+			return 0;
+		return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+		*/
+		
+		//方法2：层序遍历
+		if(root == null)
+			return 0;
+		Queue<TreeNode> que = new LinkedList<>();
+		Queue<TreeNode> temp;
+		int res = 0;
+		que.add(root);
+		while(!que.isEmpty())
+		{
+			temp = new LinkedList<>();
+			for(TreeNode node:que)
+			{
+				if(node.left != null)
+					temp.add(node.left);
+				if(node.right != null)
+					temp.add(node.right);
+			}
+			que = temp;
+			res++;
+		}
+		return res;
+	}
+	
 	public static void main(String[] args)
 	{
 		int[] pre = {3, 9, 20, 15, 7};
