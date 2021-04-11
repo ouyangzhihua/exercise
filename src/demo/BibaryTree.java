@@ -237,6 +237,107 @@ public class BibaryTree {
 		return res;
 	}
 	
+	//-------------------------------------------------------------------------------
+	
+	
+	
+	public boolean isBalanced(TreeNode root)
+	{
+		/*
+		 * 剑指 Offer 55 - II. 平衡二叉树
+		 * 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
+		 * 
+		 * 思路：
+		 * 方法1：后序遍历+剪枝
+		 * 对二叉树做后序，从底至顶返回子树深度，若判定某子树不是平衡树，则剪枝，直接向上返回
+		 * recur(root)
+		 * 返回值：
+		 * 1，当前节点root的左或右子树的深度差<=1，则返回当前子树的深度，即左/右子树深度的最大值+1，max(left,right)+1
+		 * 2，当前节点root的左或右子树的深度差<=1，则返回-1，代表此子树不是平衡树。
+		 * 终止条件：
+		 * 1，root为空：说明越过叶节点
+		 * 2，当左/右子树的深度为-1，剪枝
+		 * 
+		 * 特例处理，假定输入root为空时，返回true
+		 * */
+		
+		return recur(root) != -1;
+	}
+	private int recur(TreeNode root)
+	{
+		if(root == null)
+			return 0;
+		int left = recur(root.left);
+		if(left == -1)
+			return -1;
+		int right = recur(root.right);
+		if(right == -1)
+			return -1;
+		return Math.abs(left-right)<2 ? Math.max(left, right)+1 : -1;
+	}
+	
+	//-------------------------------------------------------------------------------
+	
+	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+	{
+		/*
+		 * 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先
+		 * 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+		 * 
+		 * 思路:
+		 * 方法1：两次遍历
+		 * 
+		 * 方法2：一次遍历
+		 * */
+		
+		//方法1：两次遍历
+		/*
+		if(root == null || p == null || q == null)
+			return null;
+		List<TreeNode> pathp = getPath(root, p);
+		List<TreeNode> pathq = getPath(root, q);
+		TreeNode ancestor = null;
+		for(int i = 0; i < pathp.size() && i < pathq.size(); i++)
+		{
+			if(pathp.get(i) == pathq.get(i))
+				ancestor = pathp.get(i);
+			else
+				break;
+		}
+		return ancestor;
+		*/
+		
+		//方法2：一次遍历
+		if(root == null || p == null || q == null)
+			return null;
+		TreeNode ancestor = root;
+		while(true)
+		{
+			if(p.val < ancestor.val && q.val < ancestor.val)
+				ancestor = ancestor.left;
+			else if(p.val > ancestor.val && q.val > ancestor.val)
+				ancestor = ancestor.right;
+			else
+				break;
+		}
+		return ancestor;
+	}
+	private List<TreeNode> getPath(TreeNode root, TreeNode target)
+	{
+		List<TreeNode> path = new ArrayList<>();
+		TreeNode node = root;
+		while(node != target)
+		{
+			path.add(node);
+			if(target.val > node.val)
+				node = node.right;
+			else 
+				node = node.left;
+		}
+		path.add(node);
+		return path;
+	}
+	
 	public static void main(String[] args)
 	{
 		int[] pre = {3, 9, 20, 15, 7};

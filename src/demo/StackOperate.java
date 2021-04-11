@@ -1,7 +1,7 @@
 package demo;
 import java.util.*;
 
-public class Stack 
+public class StackOperate 
 {
 	
 	class CQueue 

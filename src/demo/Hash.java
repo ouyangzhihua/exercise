@@ -1,7 +1,9 @@
 package demo;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Hash {
 	
@@ -56,6 +58,42 @@ public class Hash {
 		
 	}
 
+	//------------------------------------------------------------------------------------
+	
+	public boolean isStraight(int[] nums)
+	{
+		/*
+		 * 剑指 Offer 61. 扑克牌中的顺子
+		 * 从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，
+		 * 而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
+		 * 
+		 * 思路：
+		 * 方法1：集合+遍历
+		 * 5张牌连续则最大-最小<5，且没有重复的数。由于大小王可以时任何数，可先不统计
+		 * 
+		 * 方法2：排序+遍历
+		 * */
+		
+		//方法1：集合+遍历
+		if(nums == null || nums.length < 5)
+			return false;
+		int max = 0;
+		int min = 14;
+		Set<Integer> repeat = new HashSet<>();
+		for(int num:nums)
+		{
+			if(num == 0)
+				continue;
+			if(repeat.contains(num))
+				return false;
+			max = Math.max(max, num);
+			min = Math.min(min, num);
+			repeat.add(num);
+		}
+		if(max-min < 5)
+			return true;
+		return false;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

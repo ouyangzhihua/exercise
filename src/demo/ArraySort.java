@@ -8,7 +8,7 @@ package demo;
 
 import java.util.Random;
 
-class ArraySort
+public class ArraySort
 {
 	/*
 	 * 选择排序:从数组中选择最小元素，将它与数组的第一个元素交换位置。

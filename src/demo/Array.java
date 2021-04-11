@@ -1,7 +1,9 @@
 package demo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Array {
@@ -180,8 +182,141 @@ public class Array {
 			return rightNum;
 	}
 	
+	//------------------------------------------------------------------
 	
+	public int[] twoSum(int[] nums, int target)
+	{
+		/*
+		 * 剑指 Offer 57. 和为s的两个数字
+		 * 输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。如果有多对数字的和等于s，则输出任意一对即可。
+		 * 
+		 * 思路：
+		 * 方法1：双指针
+		 * 
+		 * 步骤：
+		 * 特例处理：
+		 * */
+		if(nums == null || nums.length == 0)
+			return new int[0];
+		int first = 0;
+		int last = nums.length - 1;
+		while(first < last)
+		{
+			if(nums[first]+nums[last] < target)
+				first++;
+			else if(nums[first]+nums[last] > target)
+				last--;
+			else
+				return new int[] {nums[first], nums[last]};
+		}
+		return new int[0];
+	}
 	
+	//------------------------------------------------------------------------------
+	
+	public int[][] findContinuousSequence(int target)
+	{
+		/*
+		 * 剑指 Offer 57 - II. 和为s的连续正数序列
+		 * 输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+		 * 序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
+		 * 
+		 * 思路：
+		 * 方法1：暴力枚举
+		 * 由于至少含有2个数，所以枚举的上界为target/2
+		 * 
+		 * 方法2：枚举+数学优化
+		 * 如果知道起点x和终点y，则x到y之和可得(x+y)(y-x+1)/2，因此寻找y满足(x+y)(y-x+1)/2=target
+		 * 转化为关于y的二元一次方程，套用求根公式求得y，并判断是否为整数解
+		 * 
+		 * 方法3：双指针
+		 * 
+		 * */
+		
+		//方法1：暴力枚举
+		/*
+		List<int[]> res = new ArrayList<int[]>();	//方便添加元素 使用链表存储结果。父类引用指向子类对象
+		int sum = 0;
+		int limit = target/2;
+		for(int i = 1; i <= limit; i++)
+		{
+			int j = i;
+			while(sum < target)
+			{
+				sum = sum + j;
+				j++;
+			}
+			if(sum == target)
+			{
+				int[] arr = new int[j-i];
+				for(int k = 0; k < j-i; k++)
+				{
+					arr[k] = k + i;
+				}
+				res.add(arr);
+				sum = 0;
+			}
+			else
+			{
+				sum = 0;
+			}
+		}
+		return res.toArray(new int[res.size()][]);
+		*/
+		
+		//方法2：枚举+数学优化
+		/*
+		List<int[]> res = new ArrayList<int[]>();
+		int limit = target/2;
+		for(int i = 1; i <= limit; i++)
+		{
+			long delta = 1 - 4 * (i - (long)i * i - 2 * target);
+			if(delta < 0)
+				continue;
+			int deltaSqrt = (int) Math.sqrt(delta);
+			if((long)deltaSqrt * deltaSqrt == delta && (deltaSqrt-1)%2 == 0)
+			{
+				int y = (deltaSqrt - 1)/2;
+				if(i < y)
+				{
+					int[] arr = new int[y-i+1];
+					for(int k = 0; k < y-i+1; k++)
+					{
+						arr[k] = k + i;
+					}
+					res.add(arr);
+				}
+			}
+		}
+		return res.toArray(new int[res.size()][]);
+		*/
+		
+		//方法3：双指针
+		List<int[]> res = new ArrayList<int[]>();
+		for(int left = 1, right = 2; left < right; )
+		{
+			int sum = (left + right) * (right - left + 1)/2;
+			if(sum == target)
+			{
+				int[] arr = new int[right-left+1];
+				for(int k = 0; k < right-left+1; k++)
+				{
+					arr[k] = k + left;
+				}
+				res.add(arr);
+				left++;
+			}
+			else if(sum < target)
+				right++;
+			else
+				left++;
+		}
+		return res.toArray(new int[res.size()][]);
+	}
+	
+	//-------------------------------------------------------------------------------
+	
+
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
