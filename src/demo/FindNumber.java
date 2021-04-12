@@ -164,6 +164,8 @@ public class FindNumber
 		 * 可将左侧区间去掉，若numbers[pivot]=numbers[high]，numbers[high]的值无论是不是最小，可以用numbers[pivot]代表，
 		 * 故可将最右边的值numbers[high]去掉。
 		 * 复杂度分析：时间复杂度O(log n)，空间复杂度O(1)
+		 * 
+		 * 
 		 * */
 		
 		//方法1：二分法
@@ -337,6 +339,7 @@ public class FindNumber
 		 * 步骤：
 		 * 特例处理：nums=null, nums.length == 0
 		 * 方法2：二分法
+		 * 
 		 * */
 		
 		//方法1：遍历
