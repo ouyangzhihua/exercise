@@ -57,4 +57,34 @@ public class DivideAndConquer {
 		nums[i] = nums[j];
 		nums[j] = temp;		
 	}
+	
+	
+	//----------------------------------------------------------------------------------
+	public boolean verifyPostorder(int[] postorder)
+	{
+		/*
+		 * 剑指 Offer 33. 二叉搜索树的后序遍历序列
+		 * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 true，否则返回 false。
+		 * 假设输入的数组的任意两个数字都互不相同。
+		 * 
+		 * 思路：
+		 * 方法1：递归分治
+		 * 后序遍历形式：[左子树 | 右子树 | 根节点]。
+		 * 二叉搜索树满足：左子树所有节点值<根节点值<右子树所有节点值
+		 * */
+		return recur(postorder, 0, postorder.length-1);	
+	}
+	private boolean recur(int[] postorder, int left, int right)
+	{
+		if(left >= right)
+			return true;
+		int root = postorder[right];
+		int temp = left;
+		while(postorder[temp] < root)
+			temp++;
+		int m = temp;
+		while(postorder[temp] > root)
+			temp++;
+		return temp == right && recur(postorder, left, m-1) && recur(postorder, m, right-1);
+	}
 }
