@@ -338,12 +338,62 @@ public class BibaryTree {
 		return path;
 	}
 	
-	public static void main(String[] args)
+	
+	//------------------------------------------------------------------------------
+	public boolean isSubStructure(TreeNode A, TreeNode B)
 	{
-		int[] pre = {3, 9, 20, 15, 7};
-		int[] in = {9, 3, 15, 20, 7};
-		BibaryTree bt = new BibaryTree();
-		TreeNode tn = bt.buildTree(pre, in);		
+		/*
+		 * 剑指 Offer 26. 树的子结构
+		 * 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+		 * B是A的子结构， 即 A中有出现和B相同的结构和节点值。
+		 * 
+		 * 思路：
+		 * 方法1：递归
+		 * */
+		
+		if(A == null || B == null)
+			return false;
+		if(recur(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B))
+			return true;
+		return false;
+	} 
+	/*private boolean recur(TreeNode A, TreeNode B)
+	{
+		if(B == null)
+			return true;
+		if(A == null || A.val != B.val)
+			return false;
+		return recur(A.left, B.left) && recur(A.right, B.right);
+	}*/
+
+	
+	//----------------------------------------------------------------------------------
+	public boolean validateStackSequences(int[] pushed, int[] popped)
+	{
+		/*
+		 * 剑指 Offer 31. 栈的压入、弹出序列
+		 * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。
+		 * 假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 
+		 * 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
+		 * 
+		 * 思路：
+		 * 方法1：模拟
+		 * 给定一个压入序列 pushed 和弹出序列 popped，则压入 / 弹出操作的顺序（即排列）是 唯一确定 的
+		 * 借用一个辅助栈 stackstack ，模拟 压入 / 弹出操作的排列。根据是否模拟成功，即可得到结果
+		 * 
+		 * */
+		Stack<Integer> stack = new Stack<>();
+		int i = 0;
+		for(int num : pushed)
+		{
+			stack.push(num);
+			while(!stack.isEmpty() && stack.peek() == popped[i]) 
+			{ 
+                stack.pop();
+                i++;
+			}
+		}
+		return stack.isEmpty();
 	}
 	
 }
