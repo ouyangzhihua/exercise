@@ -190,4 +190,16 @@ public class BreathFirstSearch {
         return res;
 		*/
 	}
+	
+	
+	//---------------------------------------------------------------------------------------
+	public String serialize(TreeNode root)
+	{
+		Queue<Integer> que = new LinkedList<>();
+		
+	}
+	
+
+
+
 }
