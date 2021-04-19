@@ -174,6 +174,24 @@ public class Hash {
 	
 	
 	//----------------------------------------------------------------------------------
-
+	public int lengthOfLongestSubstring(String s)
+	{
+		/*
+		 * 剑指 Offer 48. 最长不含重复字符的子字符串
+		 * 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+		 * 
+		 * */
+		if(s == null || s.length() <= 0)
+			return 0;
+		Map<Character, Integer> map = new HashMap<>();
+		for(int i = 0; i < s.length(); i++)
+		{
+			char ch = s.charAt(i);
+			if(map.containsKey(ch))
+				return i;
+			map.put(ch, i+1);
+		}
+		return 0;
+	}
 }
 

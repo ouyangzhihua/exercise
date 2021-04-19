@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Array {
 
@@ -315,12 +316,100 @@ public class Array {
 	}
 	
 	//-------------------------------------------------------------------------------
-	
-
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public String minNumber(int[] nums)
+	{
+		/*
+		 * 剑指 Offer 45. 把数组排成最小的数
+		 * 输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+		 * 
+		 * 思路：
+		 * 方法1：自定义排序
+		 * 自定义比较规则：若拼接字符串 x + y > y + x, 则x > y
+		 * 其传递性可证明若 x + y < y + x, y + z < z + y,则x + z < z + x一定成立
+		 * */
+		//套用快排算法
+		if(nums == null || nums.length == 0)
+			return "";
+		String[] s = new String[nums.length];
+		StringBuilder res = new StringBuilder();
+		for(int i = 0; i < nums.length; i++)
+		{
+			s[i] = String.valueOf(nums[i]);
+		}
+		randomQuickSort(s, 0, s.length-1);
+		for(String i:s)
+		{
+			res.append(i);
+		}
+		return res.toString();
 	}
+	private void randomQuickSort(String[] s, int left, int right)
+	{
+		if(left < right)
+		{
+			int pos = randomPartition(s, left, right);
+			randomQuickSort(s, left, pos-1);
+			randomQuickSort(s, pos+1, right);
+		}
+	}
+	private int randomPartition(String[] s, int left, int right)
+	{
+		int i = new Random().nextInt(right - left + 1) + left;
+		swap(s, i, right);
+		return partition(s, left, right);
+	}
+	private int partition(String[] s, int left, int right)
+	{
+		String pivot = s[right];
+		int i = left;
+		for(int j = left; j < right; j++)
+		{
+			 if((s[j]+pivot).compareTo(pivot+s[j]) <= 0)
+			 {
+				 swap(s, i, j);
+				 i++;
+			 }	 
+		}
+		swap(s, i, right);
+		return i;
+	}
+	private void swap(String[] s, int i, int j)
+	{
+		String temp = s[i];
+		s[i] = s[j];
+		s[j] = temp;
+	}
+	
+	//不随机选择主元
+	/*
+	    public String minNumber(int[] nums) {
+        String[] strs = new String[nums.length];
+        for(int i = 0; i < nums.length; i++)
+            strs[i] = String.valueOf(nums[i]);
+        quickSort(strs, 0, strs.length - 1);
+        StringBuilder res = new StringBuilder();
+        for(String s : strs)
+            res.append(s);
+        return res.toString();
+    }
+    void quickSort(String[] strs, int l, int r) {
+        if(l >= r) return;
+        int i = l, j = r;
+        String tmp = strs[i];
+        while(i < j) {
+            while((strs[j] + strs[l]).compareTo(strs[l] + strs[j]) >= 0 && i < j) j--;
+            while((strs[i] + strs[l]).compareTo(strs[l] + strs[i]) <= 0 && i < j) i++;
+            tmp = strs[i];
+            strs[i] = strs[j];
+            strs[j] = tmp;
+        }
+        strs[i] = strs[l];
+        strs[l] = tmp;
+        quickSort(strs, l, i - 1);
+        quickSort(strs, i + 1, r);
+    }
+	*/
+
+
 
 }

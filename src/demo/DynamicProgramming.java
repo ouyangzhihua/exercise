@@ -125,16 +125,129 @@ public class DynamicProgramming
 	}
 	
 	
-	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		DynamicProgramming  dp = new DynamicProgramming ();
-		
-		System.out.println(dp.cuttingRope(120));
-	
+	//--------------------------------------------------------------------------------------
+	public int translateNum(int num)
+	{
+		/*
+		 * 剑指 Offer 46. 把数字翻译成字符串
+		 * 给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，
+		 * 11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+		 * 
+		 * 思路：
+		 * 方法1：动态规划
+		 * 翻译的方式有两种，1，单独数字翻译；2，两个数字连起来翻译
+		 * 记第i个数字结尾的翻译方法有f(i),则f(i)=单独翻译f(i-1)+两个数字连起来翻译f(i-2)
+		 * 
+		 * 步骤：
+		 * 特例处理：num<0;
+		 * 将数转换为字符串
+		 * */
+		//方法1：动态规划
+		/*
+		if(num < 0)
+			return 0;
+		String s = String.valueOf(num);
+		int f1 = 0, f2 = 0, f = 1;
+		for(int i = 0; i < s.length(); i++)
+		{
+			f2 = f1;
+			f1 = f;
+			f = 0;
+			f += f1;
+			if(i == 0)
+				continue;
+			String pre = s.substring(i-1, i+1);	//截取i-1~i
+			if(pre.compareTo("25") <= 0 && pre.compareTo("10")>=0)
+			{
+				f += f2;
+			}
+		}
+		return f;
+		*/
+		/*
+		if(num < 0)
+			return 0;
+		String s = String.valueOf(num);
+		int f1 = 1, f2 = 1, f = 1;
+		for(int i = 1; i < s.length(); i++)
+		{
+			String pre = s.substring(i-1, i+1);
+			if(pre.compareTo("25") <= 0 && pre.compareTo("10")>=0)
+				f = f1 + f2;
+			f2 = f1;
+			f1 = f;
+		}
+		return f;
+		*/
+		//数字求余，使用字符串存储数字时仍会占用一定空间，利用取余将各数位求出来
+		if(num < 0)
+			return 0;
+		int f1 = 1, f2 = 1, f = 1;
+		int x = num % 10;
+		int y;
+		while(num != 0)
+		{
+			num /= 10;
+			y = num % 10;
+			int temp = y*10 + x;
+			x = y;
+			if(temp >=10 && temp <= 25)
+				f = f1+f2;
+			f2 = f1;
+			f1 = f;
+		}
+		return f;
 	}
+	
 
+	//----------------------------------------------------------------------------------
+	public int maxValue(int[][] grid)
+	{
+		/*
+		 * 剑指 Offer 47. 礼物的最大价值
+		 * 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。
+		 * 你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。
+		 * 给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？
+		 * 
+		 * 思路：
+		 * 方法1：动态规划
+		 * */
+		/*
+		if(grid == null || grid.length == 0 || grid[0].length == 0)
+			return 0;
+		for(int i = 0; i < grid.length; i++)
+		{
+			for(int j = 0; j < grid[0].length; j++)
+			{
+				if(i == 0 && j == 0)
+					continue;
+				else if(i == 0)
+					grid[i][j] += grid[i][j-1];
+				else if(j == 0)
+					grid[i][j] += grid[i-1][j];
+				else
+					grid[i][j] += Math.max(grid[i-1][j], grid[i][j-1]);
+			}
+		}
+		return grid[grid.length-1][grid[0].length-1];
+		*/
+		//优化
+		if(grid == null || grid.length == 0 || grid[0].length == 0)
+			return 0;
+		for(int i = 1; i < grid.length; i++)
+			grid[i][0] += grid[i-1][0];
+		for(int j = 1; j < grid[0].length; j++)
+			grid[0][j] += grid[0][j-1];
+		for(int i = 1; i < grid.length; i++)
+		{
+			for(int j = 1; j < grid[0].length; j++)
+			{
+				grid[i][j] += Math.max(grid[i-1][j], grid[i][j-1]);
+			}
+		}
+		return grid[grid.length-1][grid[0].length-1];
+	}
+	
+	
 	 
 }
