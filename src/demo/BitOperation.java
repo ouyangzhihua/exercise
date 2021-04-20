@@ -64,9 +64,62 @@ public class BitOperation
 	}
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	//-----------------------------------------------------------------------------------------
+	public int[] singleNumbers(int[] nums)
+	{
+		/*
+		 * 剑指 Offer 56 - I. 数组中数字出现的次数
+		 * 一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。
+		 * 要求时间复杂度是O(n)，空间复杂度是O(1)。
+		 * 
+		 * 思路：
+		 * 方法1：分组异或
+		 * */
+		if(nums == null || nums.length == 0)
+			return new int[0];
+		int ret = 0;
+		for(int num:nums)
+		{
+			ret ^= num;
+		}
+		int div = 1;
+		while((div&ret) == 0)
+		{
+			div <<= 1;
+		}
+		int a = 0, b = 0;
+		for(int num:nums)
+		{
+			if((div&num) != 0)
+			{
+				a ^= num;
+			}
+			else
+			{
+				b ^= num;
+			}
+		}
+		return new int[] {a,b};
+	}
+	
+	
+	//--------------------------------------------------------------------------------
+	public int singleNumber(int[] nums)
+	{
+		/*
+		 * 剑指 Offer 56 - II. 数组中数字出现的次数 II
+		 * 在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
+		 * 
+		 * 思路：
+		 * 方法1：有限状态自动机
+		 * */
+		int ones = 0, twos = 0;
+		for(int num:nums)
+		{
+			ones = ones ^ num & ~twos;
+			twos = twos ^ num & ~ones;
+		}
+		return ones;
 	}
 
 }
