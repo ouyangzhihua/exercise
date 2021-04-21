@@ -407,5 +407,54 @@ public class DynamicProgramming
 		}
 		return dp[n];
 	}
+	
+	
+	//-------------------------------------------------------------------------------------
+	public int maxProfit(int[] prices)
+	{
+		/*
+		 * 剑指 Offer 63. 股票的最大利润
+		 * 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？
+		 * 
+		 * 思路：
+		 * 方法1：动态规划
+		 * 状态定义：dp(i)记为第i天能获得的最大利润
+		 * 状态转移：初始化指针buy
+		 * 1，若prices[i]-prices[buy]>dp(i-1)，dp(i)=prices[i]-prices[buy]
+		 * 2，若prices[i]-prices[buy]<=dp(i-1)，dp(i)=dp(i-1)
+		 * 返回值：dp
+		 * 
+		 * 方法2：暴力
+		 * */
+		/*
+		if(prices == null || prices.length == 0)
+			return 0;
+		int buy = 0;
+		int dp = 0;
+		for(int i = 0; i < prices.length; i++)
+		{
+			int profit = prices[i]-prices[buy];
+			if(prices[i] < prices[buy])
+			{
+				buy = i;
+			}
+			if(profit > dp)
+			{
+				dp = profit;
+			}
+		}
+		return dp;
+		*/
+		//优化
+		if(prices == null || prices.length == 0)
+			return 0;
+        int cost = Integer.MAX_VALUE, profit = 0;
+        for(int price:prices)
+        {
+            cost = Math.min(cost, price);
+            profit = Math.max(profit, price-cost);
+        }
+        return profit;
+	}
 	 
 }
