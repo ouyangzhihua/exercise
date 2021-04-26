@@ -1,11 +1,13 @@
 package demo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DynamicProgramming 
 {
-	
+	/*
+	 * 动态规划：动态规划的一般问题形式就是求最值，求解动态规划的核心问题就是穷举。动态规划的穷举存在重叠子问题。
+	 * 
+	 * */
 	public int cuttingRope(int n)
 	{
 		/*
@@ -24,7 +26,20 @@ public class DynamicProgramming
 		 * 
 		 * 方法2：贪婪算法
 		 * 当n>=5时，可证明2(n-2)>n, 3(n-3)>n，因此我们每一步只需尽量多剪长度为3或2的
+		 * 
+		 * ----------------------------------------------------
+		 * 明确状态：绳子的长度，剪掉多少长度
+		 * 定义dp数组：dp[i]表示长度为i的绳子可剪成的最大乘积
+		 * 明确选择：长度为i可以剪掉1~i/2长度
+		 * base case: dp[2]=2;dp[3]=3; n<0,return -1; n=1,dp[1]=1;
+		 * 状态转移：dp[i]=max(1*dp[i-1],2*dp[i-2],...)
 		 * */
+		//暴力穷举、递归
+		if(n <= 1)
+			return -1;	//输入检查
+		if(n <= 3)
+			return n-1;
+		return cut(n);
 		
 		//方法1：动态规划
 		/*
@@ -73,6 +88,7 @@ public class DynamicProgramming
 		
 		
 		//考虑大数求余问题，快速求余
+		/*
 		if(n <= 1)
 			return -1;	//输入检查
 		else if(n <= 3)	//f(2)=1, f(3)=2
@@ -97,8 +113,22 @@ public class DynamicProgramming
 		else
 			max = (int) (rem * 3 * 2 % p);
 		return max;
+		*/
 	}
-	
+	private int cut(int n)
+	{
+		if(n <= 4)
+			return n;
+		int res = 1;
+		for(int i = 4; i <= n; i++)
+		{
+			for(int j = 1; j <= i/2; j++)
+			{
+				res = Math.max(res, j*cut(i-j));
+			}
+		}
+		return res;
+	}
 	//-----------------------------------------------------------------------------
 	
 	public int maxSubArray(int[] nums)
@@ -425,6 +455,9 @@ public class DynamicProgramming
 		 * 返回值：dp
 		 * 
 		 * 方法2：暴力
+		 * 
+		 * 方法3：一次遍历
+		 * 
 		 * */
 		/*
 		if(prices == null || prices.length == 0)
@@ -446,6 +479,7 @@ public class DynamicProgramming
 		return dp;
 		*/
 		//优化
+		/*
 		if(prices == null || prices.length == 0)
 			return 0;
         int cost = Integer.MAX_VALUE, profit = 0;
@@ -455,6 +489,105 @@ public class DynamicProgramming
             profit = Math.max(profit, price-cost);
         }
         return profit;
+        */
+        //方法2：暴力法
+		/*
+		if(prices == null || prices.length == 0)
+			return 0;
+		int profit = 0;
+		for(int i = 0; i < prices.length-1; i++)
+		{
+			for(int j = i+1; j < prices.length; j++)
+			{
+				profit = Math.max(profit, prices[j]-prices[i]);
+			}
+		}
+		return profit;
+		*/
+		//方法3：一次遍历
+		if(prices == null || prices.length == 0)
+			return 0;
+		int profit = 0;
+		int buy = prices[0];
+		for(int i = 1; i < prices.length; i++)
+		{
+			if(prices[i] < buy)
+			{
+				buy = prices[i];
+			}
+			else if(prices[i]-buy > profit)
+			{
+				profit = prices[i]-buy;
+			}
+		}
+		return profit;
 	}
-	 
+	
+	
+	//----------------------------------------------------------------------------------------
+	public int jumpFloorII(int target)
+	{
+		/*
+		 * 跳台阶扩展问题
+		 * 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
+		 * 
+		 * 思路：
+		 * 明确状态：目标台阶数、当前所在位置
+		 * 定义dp函数含义：dp[i]表示跳上i级台阶最多的跳法
+		 * 确定选择：当前位置可以选择跳1级~n级
+		 * 状态转移：dp[i]=dp[i-1]+dp[i-2]+...+dp[0];
+		 * base case: 当n=0，则0种跳法，n<0,无解返回-1
+		 * 
+		 * 第一步：暴力穷举、递归
+		 * 第二步：dp数组记录
+		 * 第三步：优化：
+		 * 发现：dp[i]=dp[i-1]+dp[i-2]+...+dp[0]
+		 *     dp[i-1]=dp[i-2]+dp[i-3]+...+dp[0]
+		 *  有：dp[i]=2*dp[i-1]
+		 * */
+		//暴力穷举
+		/*
+        if(target < 0)
+            return -1;
+        if(target == 0 || target == 1)
+        	return 1;
+        int res = 0;
+        for(int i = 2; i <= target; i++)
+        {
+        	res = 0;
+            for(int j = 0; j < i; j++)
+            {
+            	res += jumpFloorII(j);
+            } 
+        }
+        return res;
+        */
+        //dp数组
+		/*
+        if(target < 0)
+            return -1;
+        int[] dp = new int[target+1];
+        dp[0] = dp[1] = 1;
+        for(int i = 2; i <= target; i++)
+        {
+            for(int j = 0; j < i; j++)
+            {
+            	dp[i] += dp[j];
+            }           
+        }
+        return dp[target];
+        */
+        //优化：
+        if(target < 0)
+            return -1;
+        if(target == 0 || target == 1)
+        	return 1;
+        int res = 1;
+        for(int i = 1; i < target; i++)
+        {
+        	res = res << 1;
+        }
+        return res;
+        //return (int) Math.pow(2, target-1);
+	}
 }

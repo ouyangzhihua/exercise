@@ -1,7 +1,6 @@
 package demo;
 import java.util.*;
 
-import demo.SingleLinkedList1.Node;
 
 
 public class BibaryTree {
