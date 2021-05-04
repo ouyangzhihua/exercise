@@ -4,17 +4,17 @@ import java.util.Random;
 
 public class DivideAndConquer {
 	/*
-	 * ·ÖÖÎË¼Ïë£º½«Ò»¸öÄÑÒÔÖ±½Ó½â¾öµÄ´óÎÊÌâ£¬·Ö¸î³ÉÒ»Ð©¹æÄ£½ÏÐ¡µÄÏàÍ¬ÎÊÌâ£¬ÒÔ±ã¸÷¸ö»÷ÆÆ£¬·Ö¶øÖÎÖ®¡£
-	 * »ù±¾²½Öè£º
-	 * ·Ö½â£º½«Ô­ÎÊÌâ·Ö½âÎªÈô¸É¸ö¹æÄ£½ÏÐ¡£¬Ïà»¥¶ÀÁ¢£¬ÓëÔ­ÎÊÌâÐÎÊ½ÏàÍ¬µÄ×ÓÎÊÌâ
-	 * ½â¾ö£ºÈô×ÓÎÊÌâ¹æÄ£½ÏÐ¡¶øÈÝÒ×±»½â¾öÔòÖ±½Ó½â£¬·ñÔòµÝ¹éµØ½â¸÷¸ö×ÓÎÊÌâ
-	 * ºÏ²¢£º½«¸÷¸ö×ÓÎÊÌâµÄ½âºÏ²¢ÎªÔ­ÎÊÌâµÄ½â
+	 * åˆ†æ²»æ€æƒ³ï¼šå°†ä¸€ä¸ªéš¾ä»¥ç›´æŽ¥è§£å†³çš„å¤§é—®é¢˜ï¼Œåˆ†å‰²æˆä¸€äº›è§„æ¨¡è¾ƒå°çš„ç›¸åŒé—®é¢˜ï¼Œä»¥ä¾¿å„ä¸ªå‡»ç ´ï¼Œåˆ†è€Œæ²»ä¹‹ã€‚
+	 * åŸºæœ¬æ­¥éª¤ï¼š
+	 * åˆ†è§£ï¼šå°†åŽŸé—®é¢˜åˆ†è§£ä¸ºè‹¥å¹²ä¸ªè§„æ¨¡è¾ƒå°ï¼Œç›¸äº’ç‹¬ç«‹ï¼Œä¸ŽåŽŸé—®é¢˜å½¢å¼ç›¸åŒçš„å­é—®é¢˜
+	 * è§£å†³ï¼šè‹¥å­é—®é¢˜è§„æ¨¡è¾ƒå°è€Œå®¹æ˜“è¢«è§£å†³åˆ™ç›´æŽ¥è§£ï¼Œå¦åˆ™é€’å½’åœ°è§£å„ä¸ªå­é—®é¢˜
+	 * åˆå¹¶ï¼šå°†å„ä¸ªå­é—®é¢˜çš„è§£åˆå¹¶ä¸ºåŽŸé—®é¢˜çš„è§£ 
 	 * */
 	
 	public int[] quickSort(int[] nums)
 	{
 		/*
-		 * ¿ìÅÅ
+		 * å¿«æŽ’
 		 * */
 		if(nums == null || nums.length == 0)
 			return new int[0];
@@ -63,14 +63,14 @@ public class DivideAndConquer {
 	public boolean verifyPostorder(int[] postorder)
 	{
 		/*
-		 * ½£Ö¸ Offer 33. ¶þ²æËÑË÷Ê÷µÄºóÐò±éÀúÐòÁÐ
-		 * ÊäÈëÒ»¸öÕûÊýÊý×é£¬ÅÐ¶Ï¸ÃÊý×éÊÇ²»ÊÇÄ³¶þ²æËÑË÷Ê÷µÄºóÐò±éÀú½á¹û¡£Èç¹ûÊÇÔò·µ»Ø true£¬·ñÔò·µ»Ø false¡£
-		 * ¼ÙÉèÊäÈëµÄÊý×éµÄÈÎÒâÁ½¸öÊý×Ö¶¼»¥²»ÏàÍ¬¡£
+		 * å‰‘æŒ‡ Offer 33. äºŒå‰æœç´¢æ ‘çš„åŽåºéåŽ†åºåˆ—
+		 * è¾“å…¥ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼Œåˆ¤æ–­è¯¥æ•°ç»„æ˜¯ä¸æ˜¯æŸäºŒå‰æœç´¢æ ‘çš„åŽåºéåŽ†ç»“æžœã€‚å¦‚æžœæ˜¯åˆ™è¿”å›ž trueï¼Œå¦åˆ™è¿”å›ž falseã€‚
+		 * å‡è®¾è¾“å…¥çš„æ•°ç»„çš„ä»»æ„ä¸¤ä¸ªæ•°å­—éƒ½äº’ä¸ç›¸åŒã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºµÝ¹é·ÖÖÎ
-		 * ºóÐò±éÀúÐÎÊ½£º[×ó×ÓÊ÷ | ÓÒ×ÓÊ÷ | ¸ù½Úµã]¡£
-		 * ¶þ²æËÑË÷Ê÷Âú×ã£º×ó×ÓÊ÷ËùÓÐ½ÚµãÖµ<¸ù½ÚµãÖµ<ÓÒ×ÓÊ÷ËùÓÐ½ÚµãÖµ
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šé€’å½’åˆ†æ²»
+		 * åŽåºéåŽ†å½¢å¼ï¼š[å·¦å­æ ‘ | å³å­æ ‘ | æ ¹èŠ‚ç‚¹]ã€‚
+		 * äºŒå‰æœç´¢æ ‘æ»¡è¶³ï¼šå·¦å­æ ‘æ‰€æœ‰èŠ‚ç‚¹å€¼<æ ¹èŠ‚ç‚¹å€¼<å³å­æ ‘æ‰€æœ‰èŠ‚ç‚¹å€¼
 		 * */
 		return recur(postorder, 0, postorder.length-1);	
 	}

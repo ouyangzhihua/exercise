@@ -19,11 +19,11 @@ public class BibaryTree {
 		if(pleft > pright)
 			return null;
 		
-		int preorderRoot = pleft;	//Ç°Ðò±éÀúµÄµÚÒ»¸öÔªËØ¾ÍÊÇ¸ù½Úµã£¬¼ÇÂ¼ÆäË÷Òý
-		int inorderRoot = indexMap.get(preorder[preorderRoot]);	//ÕÒµ½ÖÐÐò±éÀúÖÐ¸ù½ÚµãµÄÎ»ÖÃ
-		TreeNode root = new TreeNode(preorder[preorderRoot]);	//½¨Á¢¸ù½Úµã
-		int sizeLeftSubtree = inorderRoot - ileft;	//µÃµ½×ó×ÓÊ÷µÄ½ÚµãÊýÁ¿
-		//µÝ¹éµÄ¹¹Ôì×ó×ÓÊ÷²¢Á¬½Óµ½¸ù½Úµã
+		int preorderRoot = pleft;	//å‰åºéåŽ†çš„ç¬¬ä¸€ä¸ªå…ƒç´ å°±æ˜¯æ ¹èŠ‚ç‚¹ï¼Œè®°å½•å…¶ç´¢å¼•
+		int inorderRoot = indexMap.get(preorder[preorderRoot]);	//æ‰¾åˆ°ä¸­åºéåŽ†ä¸­æ ¹èŠ‚ç‚¹çš„ä½ç½®
+		TreeNode root = new TreeNode(preorder[preorderRoot]);	//å»ºç«‹æ ¹èŠ‚ç‚¹
+		int sizeLeftSubtree = inorderRoot - ileft;	//å¾—åˆ°å·¦å­æ ‘çš„èŠ‚ç‚¹æ•°é‡
+		//é€’å½’çš„æž„é€ å·¦å­æ ‘å¹¶è¿žæŽ¥åˆ°æ ¹èŠ‚ç‚¹
 		//
 		root.left = myBuildTree(preorder, inorder, pleft + 1, pleft + sizeLeftSubtree, ileft, inorderRoot - 1);
 		root.right = myBuildTree(preorder, inorder, pleft + sizeLeftSubtree + 1, pright, inorderRoot + 1, iright);
@@ -32,24 +32,24 @@ public class BibaryTree {
 	public TreeNode buildTree(int[] preorder, int[] inorder)
 	{
 		/*
-		 * ½£Ö¸ Offer 07. ÖØ½¨¶þ²æÊ÷
-		 * ÐèÇó£ºÊäÈëÄ³¶þ²æÊ÷µÄÇ°Ðò±éÀúºÍÖÐÐò±éÀúµÄ½á¹û£¬ÖØ½¨¸Ã¶þ²æÊ÷¡£¼ÙÉèÊäÈëµÄÇ°Ðò±éÀúºÍÖÐÐò±éÀúµÄ½á¹ûÖÐ¶¼²»º¬ÖØ¸´µÄÊý×Ö¡£ 
+		 * å‰‘æŒ‡ Offer 07. é‡å»ºäºŒå‰æ ‘
+		 * éœ€æ±‚ï¼šè¾“å…¥æŸäºŒå‰æ ‘çš„å‰åºéåŽ†å’Œä¸­åºéåŽ†çš„ç»“æžœï¼Œé‡å»ºè¯¥äºŒå‰æ ‘ã€‚å‡è®¾è¾“å…¥çš„å‰åºéåŽ†å’Œä¸­åºéåŽ†çš„ç»“æžœä¸­éƒ½ä¸å«é‡å¤çš„æ•°å­—ã€‚ 
 		 * 
-		 * ·½·¨1£ºµÝ¹é
-		 * Ë¼Â·£º¶ÔÓÚÈÎºÎÒ»¿ÃÊ÷£¬Ç°Ðò±éÀúµÄÐÎÊ½×ÜÊÇ[¸ù½Úµã | ×ó×ÓÊ÷ | ÓÒ×ÓÊ÷]£¬
-		 * 					ÖÐÐò±éÀúµÄÐÎÊ½×ÜÊÇ[×ó×ÓÊ÷ | ¸ù½Úµã | ÓÒ×ÓÊ÷]
-		 * ¸ù¾ÝÇ°Ðò±éÀúµÄµÚÒ»¸öÔªËØµÃµ½¸ù½Úµã£¬ÓÉÓÚ²»º¬ÖØ¸´µÄÊý×Ö£¬ÔÚÖÐÐò±éÀúµÄÕÒµ½¸ù½Úµã£¬Ôò¿ÉÒÔµÃµ½×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷¡£
-		 * ·Ö±ð½«×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷¿´³ÉÒ»¸öÈ«ÐÂµÄÊ÷£¬ÖØ¸´ÉÏÊö²½Öè£¬Ö±µ½ÕÒµ½ËùÓÐ½Úµã¡£
-		 * ÔÚÖÐÐò±éÀúÖÐÕÒ¸ù½ÚµãÊ±£¬²ÉÓÃ¹þÏ£±í¶¨Î»£¬¿ÉÒÔ½µµÍÊ±¼ä¸´ÔÓ¶È¡£¶Ô¹þÏ£Ó³ÉäµÄÃ¿Ò»¸ö¼üÖµ¶Ô£¬¼ü±íÊ¾Ò»¸öÔªËØ£¨½ÚµãµÄÖµ£©£¬
-		 * Öµ±íÊ¾ÆäÔÚÖÐÐò±éÀúÖÐ³öÏÖµÄÎ»ÖÃ¡£ÔÚ¹¹Ôì¶þ²æÊ÷µÄ¹ý³ÌÖ®Ç°£¬ÎÒÃÇ¿ÉÒÔ¶ÔÖÐÐò±éÀúµÄÁÐ±í½øÐÐÒ»±éÉ¨Ãè£¬
-		 * ¾Í¿ÉÒÔ¹¹Ôì³öÕâ¸ö¹þÏ£Ó³Éä¡£ÔÚ´Ëºó¹¹Ôì¶þ²æÊ÷µÄ¹ý³ÌÖÐ£¬ÎÒÃÇ¾ÍÖ»ÐèÒª O(1)µÄÊ±¼ä¶Ô¸ù½Úµã½øÐÐ¶¨Î»ÁË¡£
-		 * ²½Öè£º
+		 * æ–¹æ³•1ï¼šé€’å½’
+		 * æ€è·¯ï¼šå¯¹äºŽä»»ä½•ä¸€æ£µæ ‘ï¼Œå‰åºéåŽ†çš„å½¢å¼æ€»æ˜¯[æ ¹èŠ‚ç‚¹ | å·¦å­æ ‘ | å³å­æ ‘]ï¼Œ
+		 * 					ä¸­åºéåŽ†çš„å½¢å¼æ€»æ˜¯[å·¦å­æ ‘ | æ ¹èŠ‚ç‚¹ | å³å­æ ‘]
+		 * æ ¹æ®å‰åºéåŽ†çš„ç¬¬ä¸€ä¸ªå…ƒç´ å¾—åˆ°æ ¹èŠ‚ç‚¹ï¼Œç”±äºŽä¸å«é‡å¤çš„æ•°å­—ï¼Œåœ¨ä¸­åºéåŽ†çš„æ‰¾åˆ°æ ¹èŠ‚ç‚¹ï¼Œåˆ™å¯ä»¥å¾—åˆ°å·¦å­æ ‘å’Œå³å­æ ‘ã€‚
+		 * åˆ†åˆ«å°†å·¦å­æ ‘å’Œå³å­æ ‘çœ‹æˆä¸€ä¸ªå…¨æ–°çš„æ ‘ï¼Œé‡å¤ä¸Šè¿°æ­¥éª¤ï¼Œç›´åˆ°æ‰¾åˆ°æ‰€æœ‰èŠ‚ç‚¹ã€‚
+		 * åœ¨ä¸­åºéåŽ†ä¸­æ‰¾æ ¹èŠ‚ç‚¹æ—¶ï¼Œé‡‡ç”¨å“ˆå¸Œè¡¨å®šä½ï¼Œå¯ä»¥é™ä½Žæ—¶é—´å¤æ‚åº¦ã€‚å¯¹å“ˆå¸Œæ˜ å°„çš„æ¯ä¸€ä¸ªé”®å€¼å¯¹ï¼Œé”®è¡¨ç¤ºä¸€ä¸ªå…ƒç´ ï¼ˆèŠ‚ç‚¹çš„å€¼ï¼‰ï¼Œ
+		 * å€¼è¡¨ç¤ºå…¶åœ¨ä¸­åºéåŽ†ä¸­å‡ºçŽ°çš„ä½ç½®ã€‚åœ¨æž„é€ äºŒå‰æ ‘çš„è¿‡ç¨‹ä¹‹å‰ï¼Œæˆ‘ä»¬å¯ä»¥å¯¹ä¸­åºéåŽ†çš„åˆ—è¡¨è¿›è¡Œä¸€éæ‰«æï¼Œ
+		 * å°±å¯ä»¥æž„é€ å‡ºè¿™ä¸ªå“ˆå¸Œæ˜ å°„ã€‚åœ¨æ­¤åŽæž„é€ äºŒå‰æ ‘çš„è¿‡ç¨‹ä¸­ï¼Œæˆ‘ä»¬å°±åªéœ€è¦ O(1)çš„æ—¶é—´å¯¹æ ¹èŠ‚ç‚¹è¿›è¡Œå®šä½äº†ã€‚
+		 * æ­¥éª¤ï¼š
 		 * 
-		 * ¸´ÔÓ¶È·ÖÎö£º¿Õ¼ä¸´ÔÓ¶ÈO(n)£¬Ê±¼ä¸´ÔÓ¶ÈO(n)
+		 * å¤æ‚åº¦åˆ†æžï¼šç©ºé—´å¤æ‚åº¦O(n)ï¼Œæ—¶é—´å¤æ‚åº¦O(n)
 		 * */
 		
 		int n = preorder.length;
-		//¹¹Ôì¹þÏ£Ó³Éä
+		//æž„é€ å“ˆå¸Œæ˜ å°„
 		indexMap = new HashMap<Integer, Integer>();
 		for(int i = 0; i < n; i++)
 			indexMap.put(inorder[i], i);
@@ -61,11 +61,11 @@ public class BibaryTree {
 	public TreeNode mirrorTree(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 27. ¶þ²æÊ÷µÄ¾µÏñ
-		 * ÇëÍê³ÉÒ»¸öº¯Êý£¬ÊäÈëÒ»¸ö¶þ²æÊ÷£¬¸Ãº¯ÊýÊä³öËüµÄ¾µÏñ¡£
+		 * å‰‘æŒ‡ Offer 27. äºŒå‰æ ‘çš„é•œåƒ
+		 * è¯·å®Œæˆä¸€ä¸ªå‡½æ•°ï¼Œè¾“å…¥ä¸€ä¸ªäºŒå‰æ ‘ï¼Œè¯¥å‡½æ•°è¾“å‡ºå®ƒçš„é•œåƒã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºµÝ¹é
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šé€’å½’
 		 * 
 		 * */
 		if(root == null)
@@ -84,26 +84,26 @@ public class BibaryTree {
 	public boolean isSymmetric(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 28. ¶Ô³ÆµÄ¶þ²æÊ÷
-		 * ÇëÊµÏÖÒ»¸öº¯Êý£¬ÓÃÀ´ÅÐ¶ÏÒ»¿Ã¶þ²æÊ÷ÊÇ²»ÊÇ¶Ô³ÆµÄ¡£Èç¹ûÒ»¿Ã¶þ²æÊ÷ºÍËüµÄ¾µÏñÒ»Ñù£¬ÄÇÃ´ËüÊÇ¶Ô³ÆµÄ¡£
-		 * ÀýÈç£¬¶þ²æÊ÷ [1,2,2,3,4,4,3] ÊÇ¶Ô³ÆµÄ¡£
+		 * å‰‘æŒ‡ Offer 28. å¯¹ç§°çš„äºŒå‰æ ‘
+		 * è¯·å®žçŽ°ä¸€ä¸ªå‡½æ•°ï¼Œç”¨æ¥åˆ¤æ–­ä¸€æ£µäºŒå‰æ ‘æ˜¯ä¸æ˜¯å¯¹ç§°çš„ã€‚å¦‚æžœä¸€æ£µäºŒå‰æ ‘å’Œå®ƒçš„é•œåƒä¸€æ ·ï¼Œé‚£ä¹ˆå®ƒæ˜¯å¯¹ç§°çš„ã€‚
+		 * ä¾‹å¦‚ï¼ŒäºŒå‰æ ‘ [1,2,2,3,4,4,3] æ˜¯å¯¹ç§°çš„ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºµÝ¹é
-		 * ¶þ²æÊ÷¶Ô³ÆÔòÓÐ£º1£¬root.left.val = root.right.val
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šé€’å½’
+		 * äºŒå‰æ ‘å¯¹ç§°åˆ™æœ‰ï¼š1ï¼Œroot.left.val = root.right.val
 		 * 2, l.left.val = r.right.val
 		 * 3, l.right.val = r.left.val
-		 * ¿ÉÓÃµÝ¹é´Ó¶¥ÖÁÏÂ£¬ÆäÊÇ·ñ¶Ô³Æ
-		 * ²½Öè£º
-		 * ÊäÈë±ß½çÖµ´¦Àí£ºroot == null, return true
-		 * µÝ¹éÖÕÖ¹Ìõ¼þ£º1£¬LºÍRÍ¬Ê±Ô½¹ýÒ¶½Úµã£¬´ËÊ±ÕûÊ÷¶Ô³Æ
-		 * 2£¬L»òRÓÐÒ»¸öÏÈÔ½¹ýÒ¶½Úµã
-		 * 3£¬µ±Ç°L½ÚµãÖµ£¡=µ±Ç°R½ÚµãÖµ
-		 * µÝ¹é¹¤×÷£º
+		 * å¯ç”¨é€’å½’ä»Žé¡¶è‡³ä¸‹ï¼Œå…¶æ˜¯å¦å¯¹ç§°
+		 * æ­¥éª¤ï¼š
+		 * è¾“å…¥è¾¹ç•Œå€¼å¤„ç†ï¼šroot == null, return true
+		 * é€’å½’ç»ˆæ­¢æ¡ä»¶ï¼š1ï¼ŒLå’ŒRåŒæ—¶è¶Šè¿‡å¶èŠ‚ç‚¹ï¼Œæ­¤æ—¶æ•´æ ‘å¯¹ç§°
+		 * 2ï¼ŒLæˆ–Ræœ‰ä¸€ä¸ªå…ˆè¶Šè¿‡å¶èŠ‚ç‚¹
+		 * 3ï¼Œå½“å‰LèŠ‚ç‚¹å€¼ï¼=å½“å‰RèŠ‚ç‚¹å€¼
+		 * é€’å½’å·¥ä½œï¼š
 		 * recur(l.left,r.right)
 		 * recur(l.right, r.left)
-		 * ·µ»ØÖµ£ºrecur(l.left,r.right) && recur(l.right, r.left)
-		 * ¸´ÔÓ¶È·ÖÎö£º
+		 * è¿”å›žå€¼ï¼šrecur(l.left,r.right) && recur(l.right, r.left)
+		 * å¤æ‚åº¦åˆ†æžï¼š
 		 * */
 		if(root == null)
 			return true;
@@ -125,8 +125,8 @@ public class BibaryTree {
 	public int[] levelOrder(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 32 - I. ´ÓÉÏµ½ÏÂ´òÓ¡¶þ²æÊ÷
-		 * ´ÓÉÏµ½ÏÂ´òÓ¡³ö¶þ²æÊ÷µÄÃ¿¸ö½Úµã£¬Í¬Ò»²ãµÄ½Úµã°´ÕÕ´Ó×óµ½ÓÒµÄË³Ðò´òÓ¡¡£
+		 * å‰‘æŒ‡ Offer 32 - I. ä»Žä¸Šåˆ°ä¸‹æ‰“å°äºŒå‰æ ‘
+		 * ä»Žä¸Šåˆ°ä¸‹æ‰“å°å‡ºäºŒå‰æ ‘çš„æ¯ä¸ªèŠ‚ç‚¹ï¼ŒåŒä¸€å±‚çš„èŠ‚ç‚¹æŒ‰ç…§ä»Žå·¦åˆ°å³çš„é¡ºåºæ‰“å°ã€‚
 		 * 
 		 * */
 		if(root == null)
@@ -159,18 +159,18 @@ public class BibaryTree {
 	public List<List<Integer>> levelOrder2(TreeNode root) 
 	{
 		/*
-		 * ½£Ö¸ Offer 32 - II. ´ÓÉÏµ½ÏÂ´òÓ¡¶þ²æÊ÷ II
-		 * ´ÓÉÏµ½ÏÂ°´²ã´òÓ¡¶þ²æÊ÷£¬Í¬Ò»²ãµÄ½Úµã°´´Ó×óµ½ÓÒµÄË³Ðò´òÓ¡£¬Ã¿Ò»²ã´òÓ¡µ½Ò»ÐÐ¡£
+		 * å‰‘æŒ‡ Offer 32 - II. ä»Žä¸Šåˆ°ä¸‹æ‰“å°äºŒå‰æ ‘ II
+		 * ä»Žä¸Šåˆ°ä¸‹æŒ‰å±‚æ‰“å°äºŒå‰æ ‘ï¼ŒåŒä¸€å±‚çš„èŠ‚ç‚¹æŒ‰ä»Žå·¦åˆ°å³çš„é¡ºåºæ‰“å°ï¼Œæ¯ä¸€å±‚æ‰“å°åˆ°ä¸€è¡Œã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º¹ã¶ÈÓÅÏÈËÑË÷
-		 * Ã¿Ò»²ã´òÓ¡Ò»ÐÐ¿ÉÒÔÍ¨¹ý¹ã¶ÈÓÅÏÈËÑË÷ÕÒµ½Ò»²ãµÄËùÓÐ½Úµã¡£
-		 * ¹ã¶ÈÓÅÏÈËÑË÷Í¨³£ÀûÓÃ¶ÓÁÐÏÈ½øÏÈ³öµÄÌØÐÔÊµÏÖ
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå¹¿åº¦ä¼˜å…ˆæœç´¢
+		 * æ¯ä¸€å±‚æ‰“å°ä¸€è¡Œå¯ä»¥é€šè¿‡å¹¿åº¦ä¼˜å…ˆæœç´¢æ‰¾åˆ°ä¸€å±‚çš„æ‰€æœ‰èŠ‚ç‚¹ã€‚
+		 * å¹¿åº¦ä¼˜å…ˆæœç´¢é€šå¸¸åˆ©ç”¨é˜Ÿåˆ—å…ˆè¿›å…ˆå‡ºçš„ç‰¹æ€§å®žçŽ°
 		 * 
-		 * ²½Öè£º
-		 * ÌØÀý´¦Àí£ºroot=null£¬·µ»Ø¿ÕÁÐ±í
-		 * ³õÊ¼»¯£º
-		 * BFSÑ­»·Ìõ¼þ£º
+		 * æ­¥éª¤ï¼š
+		 * ç‰¹ä¾‹å¤„ç†ï¼šroot=nullï¼Œè¿”å›žç©ºåˆ—è¡¨
+		 * åˆå§‹åŒ–ï¼š
+		 * BFSå¾ªçŽ¯æ¡ä»¶ï¼š
 		 * 
 		 * */
 		List<List<Integer>> res = new ArrayList<>();
@@ -198,16 +198,16 @@ public class BibaryTree {
 	public List<List<Integer>> levelOrder3(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 32 - III. ´ÓÉÏµ½ÏÂ´òÓ¡¶þ²æÊ÷ III
-		 * ÇëÊµÏÖÒ»¸öº¯Êý°´ÕÕÖ®×ÖÐÎË³Ðò´òÓ¡¶þ²æÊ÷£¬¼´µÚÒ»ÐÐ°´ÕÕ´Ó×óµ½ÓÒµÄË³Ðò´òÓ¡£¬µÚ¶þ²ã°´ÕÕ´ÓÓÒµ½×óµÄË³Ðò´òÓ¡£¬
-		 * µÚÈýÐÐÔÙ°´ÕÕ´Ó×óµ½ÓÒµÄË³Ðò´òÓ¡£¬ÆäËûÐÐÒÔ´ËÀàÍÆ¡£
+		 * å‰‘æŒ‡ Offer 32 - III. ä»Žä¸Šåˆ°ä¸‹æ‰“å°äºŒå‰æ ‘ III
+		 * è¯·å®žçŽ°ä¸€ä¸ªå‡½æ•°æŒ‰ç…§ä¹‹å­—å½¢é¡ºåºæ‰“å°äºŒå‰æ ‘ï¼Œå³ç¬¬ä¸€è¡ŒæŒ‰ç…§ä»Žå·¦åˆ°å³çš„é¡ºåºæ‰“å°ï¼Œç¬¬äºŒå±‚æŒ‰ç…§ä»Žå³åˆ°å·¦çš„é¡ºåºæ‰“å°ï¼Œ
+		 * ç¬¬ä¸‰è¡Œå†æŒ‰ç…§ä»Žå·¦åˆ°å³çš„é¡ºåºæ‰“å°ï¼Œå…¶ä»–è¡Œä»¥æ­¤ç±»æŽ¨ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º²ãÐò±éÀú+Ë«¶Ë¶ÓÁÐ
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå±‚åºéåŽ†+åŒç«¯é˜Ÿåˆ—
 		 * 
-		 * ·½·¨2£º²ãÐò±éÀú + Ë«¶Ë¶ÓÁÐ£¨ÆæÅ¼²ãÂß¼­·ÖÀë£©
+		 * æ–¹æ³•2ï¼šå±‚åºéåŽ† + åŒç«¯é˜Ÿåˆ—ï¼ˆå¥‡å¶å±‚é€»è¾‘åˆ†ç¦»ï¼‰
 		 * 
-		 * ·½·¨3£º²ãÐò±éÀú + µ¹Ðò
+		 * æ–¹æ³•3ï¼šå±‚åºéåŽ† + å€’åº
 		 * */
 		List<List<Integer>> res = new ArrayList<>();
 		Queue<TreeNode> que = new LinkedList<>();
@@ -232,36 +232,36 @@ public class BibaryTree {
 		}
 		return res;
 		
-		//·½·¨2£º²ãÐò±éÀú + Ë«¶Ë¶ÓÁÐ£¨ÆæÅ¼²ãÂß¼­·ÖÀë£©
+		//æ–¹æ³•2ï¼šå±‚åºéåŽ† + åŒç«¯é˜Ÿåˆ—ï¼ˆå¥‡å¶å±‚é€»è¾‘åˆ†ç¦»ï¼‰
 		/*
 		Deque<TreeNode> deque = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
         if(root != null) deque.add(root);
         while(!deque.isEmpty()) 
         {
-            // ´òÓ¡ÆæÊý²ã
+            // æ‰“å°å¥‡æ•°å±‚
             List<Integer> tmp = new ArrayList<>();
             for(int i = deque.size(); i > 0; i--) 
             {
-                // ´Ó×óÏòÓÒ´òÓ¡
+                // ä»Žå·¦å‘å³æ‰“å°
                 TreeNode node = deque.removeFirst();
                 tmp.add(node.val);
-                // ÏÈ×óºóÓÒ¼ÓÈëÏÂ²ã½Úµã
+                // å…ˆå·¦åŽå³åŠ å…¥ä¸‹å±‚èŠ‚ç‚¹
                 if(node.left != null) 
                 	deque.addLast(node.left);
                 if(node.right != null) 
                 	deque.addLast(node.right);
             }
             res.add(tmp);
-            if(deque.isEmpty()) break; // ÈôÎª¿ÕÔòÌáÇ°Ìø³ö
-            // ´òÓ¡Å¼Êý²ã
+            if(deque.isEmpty()) break; // è‹¥ä¸ºç©ºåˆ™æå‰è·³å‡º
+            // æ‰“å°å¶æ•°å±‚
             tmp = new ArrayList<>();
             for(int i = deque.size(); i > 0; i--) 
             {
-                // ´ÓÓÒÏò×ó´òÓ¡
+                // ä»Žå³å‘å·¦æ‰“å°
                 TreeNode node = deque.removeLast();
                 tmp.add(node.val);
-                // ÏÈÓÒºó×ó¼ÓÈëÏÂ²ã½Úµã
+                // å…ˆå³åŽå·¦åŠ å…¥ä¸‹å±‚èŠ‚ç‚¹
                 if(node.right != null) 
                 	deque.addFirst(node.right);
                 if(node.left != null) 
@@ -272,7 +272,7 @@ public class BibaryTree {
         return res;
 		*/
 		
-		//·½·¨3£º²ãÐò±éÀú + µ¹Ðò
+		//æ–¹æ³•3ï¼šå±‚åºéåŽ† + å€’åº
 		/*
         Queue<TreeNode> queue = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
@@ -304,14 +304,14 @@ public class BibaryTree {
 	public int kthLargest(TreeNode root, int k)
 	{
 		/*
-		 * ½£Ö¸ Offer 54. ¶þ²æËÑË÷Ê÷µÄµÚk´ó½Úµã
-		 * ¸ø¶¨Ò»¿Ã¶þ²æËÑË÷Ê÷£¬ÇëÕÒ³öÆäÖÐµÚk´óµÄ½Úµã¡£
+		 * å‰‘æŒ‡ Offer 54. äºŒå‰æœç´¢æ ‘çš„ç¬¬kå¤§èŠ‚ç‚¹
+		 * ç»™å®šä¸€æ£µäºŒå‰æœç´¢æ ‘ï¼Œè¯·æ‰¾å‡ºå…¶ä¸­ç¬¬kå¤§çš„èŠ‚ç‚¹ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÖÐÐò±éÀúµ¹Ðò
-		 * ¶þ²æËÑË÷Ê÷µÄÖÐÐò±éÀúÎªµÝÔöÐòÁÐ
-		 * ²½Öè£º
-		 * ÌØÀý´¦Àí£º
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šä¸­åºéåŽ†å€’åº
+		 * äºŒå‰æœç´¢æ ‘çš„ä¸­åºéåŽ†ä¸ºé€’å¢žåºåˆ—
+		 * æ­¥éª¤ï¼š
+		 * ç‰¹ä¾‹å¤„ç†ï¼š
 		 * 
 		 * */
 		if(root == null || k < 1)
@@ -335,24 +335,24 @@ public class BibaryTree {
 	public int maxDepth(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 55 - I. ¶þ²æÊ÷µÄÉî¶È
-		 * ÊäÈëÒ»¿Ã¶þ²æÊ÷µÄ¸ù½Úµã£¬Çó¸ÃÊ÷µÄÉî¶È¡£´Ó¸ù½Úµãµ½Ò¶½ÚµãÒÀ´Î¾­¹ýµÄ½Úµã£¨º¬¸ù¡¢Ò¶½Úµã£©ÐÎ³ÉÊ÷µÄÒ»ÌõÂ·¾¶£¬×î³¤Â·¾¶µÄ³¤¶ÈÎªÊ÷µÄÉî¶È¡£
+		 * å‰‘æŒ‡ Offer 55 - I. äºŒå‰æ ‘çš„æ·±åº¦
+		 * è¾“å…¥ä¸€æ£µäºŒå‰æ ‘çš„æ ¹èŠ‚ç‚¹ï¼Œæ±‚è¯¥æ ‘çš„æ·±åº¦ã€‚ä»Žæ ¹èŠ‚ç‚¹åˆ°å¶èŠ‚ç‚¹ä¾æ¬¡ç»è¿‡çš„èŠ‚ç‚¹ï¼ˆå«æ ¹ã€å¶èŠ‚ç‚¹ï¼‰å½¢æˆæ ‘çš„ä¸€æ¡è·¯å¾„ï¼Œæœ€é•¿è·¯å¾„çš„é•¿åº¦ä¸ºæ ‘çš„æ·±åº¦ã€‚
 		 * 
-		 * Ë¼Â·£ºÊ÷µÄ±éÀú×ÜÌå·ÖÎªÁ½Àà£ºÉî¶ÈÓÅÏÈËÑË÷£¨DFS£©£¬¹ã¶ÈÓÅÏÈËÑË÷£¨BFS£©
-		 * ³£¼ûµÄDFS£ºÇ°Ðò±éÀú£¬ÖÐÐò±éÀú£¬ ºóÐò±éÀú
-		 * ³£¼ûµÄBFS£º²ãÐò±éÀú
-		 * ·½·¨1£ººóÐø±éÀú
+		 * æ€è·¯ï¼šæ ‘çš„éåŽ†æ€»ä½“åˆ†ä¸ºä¸¤ç±»ï¼šæ·±åº¦ä¼˜å…ˆæœç´¢ï¼ˆDFSï¼‰ï¼Œå¹¿åº¦ä¼˜å…ˆæœç´¢ï¼ˆBFSï¼‰
+		 * å¸¸è§çš„DFSï¼šå‰åºéåŽ†ï¼Œä¸­åºéåŽ†ï¼Œ åŽåºéåŽ†
+		 * å¸¸è§çš„BFSï¼šå±‚åºéåŽ†
+		 * æ–¹æ³•1ï¼šåŽç»­éåŽ†
 		 * 
-		 * ·½·¨2£º²ãÐò±éÀú
+		 * æ–¹æ³•2ï¼šå±‚åºéåŽ†
 		 * */
-		//·½·¨1£ººóÐø±éÀú
+		//æ–¹æ³•1ï¼šåŽç»­éåŽ†
 		/*
 		if(root == null)
 			return 0;
 		return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
 		*/
 		
-		//·½·¨2£º²ãÐò±éÀú
+		//æ–¹æ³•2ï¼šå±‚åºéåŽ†
 		if(root == null)
 			return 0;
 		Queue<TreeNode> que = new LinkedList<>();
@@ -382,21 +382,21 @@ public class BibaryTree {
 	public boolean isBalanced(TreeNode root)
 	{
 		/*
-		 * ½£Ö¸ Offer 55 - II. Æ½ºâ¶þ²æÊ÷
-		 * ÊäÈëÒ»¿Ã¶þ²æÊ÷µÄ¸ù½Úµã£¬ÅÐ¶Ï¸ÃÊ÷ÊÇ²»ÊÇÆ½ºâ¶þ²æÊ÷¡£Èç¹ûÄ³¶þ²æÊ÷ÖÐÈÎÒâ½ÚµãµÄ×óÓÒ×ÓÊ÷µÄÉî¶ÈÏà²î²»³¬¹ý1£¬ÄÇÃ´Ëü¾ÍÊÇÒ»¿ÃÆ½ºâ¶þ²æÊ÷¡£
+		 * å‰‘æŒ‡ Offer 55 - II. å¹³è¡¡äºŒå‰æ ‘
+		 * è¾“å…¥ä¸€æ£µäºŒå‰æ ‘çš„æ ¹èŠ‚ç‚¹ï¼Œåˆ¤æ–­è¯¥æ ‘æ˜¯ä¸æ˜¯å¹³è¡¡äºŒå‰æ ‘ã€‚å¦‚æžœæŸäºŒå‰æ ‘ä¸­ä»»æ„èŠ‚ç‚¹çš„å·¦å³å­æ ‘çš„æ·±åº¦ç›¸å·®ä¸è¶…è¿‡1ï¼Œé‚£ä¹ˆå®ƒå°±æ˜¯ä¸€æ£µå¹³è¡¡äºŒå‰æ ‘ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ººóÐò±éÀú+¼ôÖ¦
-		 * ¶Ô¶þ²æÊ÷×öºóÐò£¬´Óµ×ÖÁ¶¥·µ»Ø×ÓÊ÷Éî¶È£¬ÈôÅÐ¶¨Ä³×ÓÊ÷²»ÊÇÆ½ºâÊ÷£¬Ôò¼ôÖ¦£¬Ö±½ÓÏòÉÏ·µ»Ø
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šåŽåºéåŽ†+å‰ªæž
+		 * å¯¹äºŒå‰æ ‘åšåŽåºï¼Œä»Žåº•è‡³é¡¶è¿”å›žå­æ ‘æ·±åº¦ï¼Œè‹¥åˆ¤å®šæŸå­æ ‘ä¸æ˜¯å¹³è¡¡æ ‘ï¼Œåˆ™å‰ªæžï¼Œç›´æŽ¥å‘ä¸Šè¿”å›ž
 		 * recur(root)
-		 * ·µ»ØÖµ£º
-		 * 1£¬µ±Ç°½ÚµãrootµÄ×ó»òÓÒ×ÓÊ÷µÄÉî¶È²î<=1£¬Ôò·µ»Øµ±Ç°×ÓÊ÷µÄÉî¶È£¬¼´×ó/ÓÒ×ÓÊ÷Éî¶ÈµÄ×î´óÖµ+1£¬max(left,right)+1
-		 * 2£¬µ±Ç°½ÚµãrootµÄ×ó»òÓÒ×ÓÊ÷µÄÉî¶È²î<=1£¬Ôò·µ»Ø-1£¬´ú±í´Ë×ÓÊ÷²»ÊÇÆ½ºâÊ÷¡£
-		 * ÖÕÖ¹Ìõ¼þ£º
-		 * 1£¬rootÎª¿Õ£ºËµÃ÷Ô½¹ýÒ¶½Úµã
-		 * 2£¬µ±×ó/ÓÒ×ÓÊ÷µÄÉî¶ÈÎª-1£¬¼ôÖ¦
+		 * è¿”å›žå€¼ï¼š
+		 * 1ï¼Œå½“å‰èŠ‚ç‚¹rootçš„å·¦æˆ–å³å­æ ‘çš„æ·±åº¦å·®<=1ï¼Œåˆ™è¿”å›žå½“å‰å­æ ‘çš„æ·±åº¦ï¼Œå³å·¦/å³å­æ ‘æ·±åº¦çš„æœ€å¤§å€¼+1ï¼Œmax(left,right)+1
+		 * 2ï¼Œå½“å‰èŠ‚ç‚¹rootçš„å·¦æˆ–å³å­æ ‘çš„æ·±åº¦å·®<=1ï¼Œåˆ™è¿”å›ž-1ï¼Œä»£è¡¨æ­¤å­æ ‘ä¸æ˜¯å¹³è¡¡æ ‘ã€‚
+		 * ç»ˆæ­¢æ¡ä»¶ï¼š
+		 * 1ï¼Œrootä¸ºç©ºï¼šè¯´æ˜Žè¶Šè¿‡å¶èŠ‚ç‚¹
+		 * 2ï¼Œå½“å·¦/å³å­æ ‘çš„æ·±åº¦ä¸º-1ï¼Œå‰ªæž
 		 * 
-		 * ÌØÀý´¦Àí£¬¼Ù¶¨ÊäÈërootÎª¿ÕÊ±£¬·µ»Øtrue
+		 * ç‰¹ä¾‹å¤„ç†ï¼Œå‡å®šè¾“å…¥rootä¸ºç©ºæ—¶ï¼Œè¿”å›žtrue
 		 * */
 		
 		return recur(root) != -1;
@@ -419,16 +419,16 @@ public class BibaryTree {
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 	{
 		/*
-		 * ½£Ö¸ Offer 68 - I. ¶þ²æËÑË÷Ê÷µÄ×î½ü¹«¹²×æÏÈ
-		 * ¸ø¶¨Ò»¸ö¶þ²æËÑË÷Ê÷, ÕÒµ½¸ÃÊ÷ÖÐÁ½¸öÖ¸¶¨½ÚµãµÄ×î½ü¹«¹²×æÏÈ¡£
+		 * å‰‘æŒ‡ Offer 68 - I. äºŒå‰æœç´¢æ ‘çš„æœ€è¿‘å…¬å…±ç¥–å…ˆ
+		 * ç»™å®šä¸€ä¸ªäºŒå‰æœç´¢æ ‘, æ‰¾åˆ°è¯¥æ ‘ä¸­ä¸¤ä¸ªæŒ‡å®šèŠ‚ç‚¹çš„æœ€è¿‘å…¬å…±ç¥–å…ˆã€‚
 		 * 
-		 * Ë¼Â·:
-		 * ·½·¨1£ºÁ½´Î±éÀú
+		 * æ€è·¯:
+		 * æ–¹æ³•1ï¼šä¸¤æ¬¡éåŽ†
 		 * 
-		 * ·½·¨2£ºÒ»´Î±éÀú
+		 * æ–¹æ³•2ï¼šä¸€æ¬¡éåŽ†
 		 * */
 		
-		//·½·¨1£ºÁ½´Î±éÀú
+		//æ–¹æ³•1ï¼šä¸¤æ¬¡éåŽ†
 		/*
 		if(root == null || p == null || q == null)
 			return null;
@@ -445,7 +445,7 @@ public class BibaryTree {
 		return ancestor;
 		*/
 		
-		//·½·¨2£ºÒ»´Î±éÀú
+		//æ–¹æ³•2ï¼šä¸€æ¬¡éåŽ†
 		if(root == null || p == null || q == null)
 			return null;
 		TreeNode ancestor = root;
@@ -481,12 +481,12 @@ public class BibaryTree {
 	public boolean isSubStructure(TreeNode A, TreeNode B)
 	{
 		/*
-		 * ½£Ö¸ Offer 26. Ê÷µÄ×Ó½á¹¹
-		 * ÊäÈëÁ½¿Ã¶þ²æÊ÷AºÍB£¬ÅÐ¶ÏBÊÇ²»ÊÇAµÄ×Ó½á¹¹¡£(Ô¼¶¨¿ÕÊ÷²»ÊÇÈÎÒâÒ»¸öÊ÷µÄ×Ó½á¹¹)
-		 * BÊÇAµÄ×Ó½á¹¹£¬ ¼´ AÖÐÓÐ³öÏÖºÍBÏàÍ¬µÄ½á¹¹ºÍ½ÚµãÖµ¡£
+		 * å‰‘æŒ‡ Offer 26. æ ‘çš„å­ç»“æž„
+		 * è¾“å…¥ä¸¤æ£µäºŒå‰æ ‘Aå’ŒBï¼Œåˆ¤æ–­Bæ˜¯ä¸æ˜¯Açš„å­ç»“æž„ã€‚(çº¦å®šç©ºæ ‘ä¸æ˜¯ä»»æ„ä¸€ä¸ªæ ‘çš„å­ç»“æž„)
+		 * Bæ˜¯Açš„å­ç»“æž„ï¼Œ å³ Aä¸­æœ‰å‡ºçŽ°å’ŒBç›¸åŒçš„ç»“æž„å’ŒèŠ‚ç‚¹å€¼ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºµÝ¹é
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šé€’å½’
 		 * */
 		
 		if(A == null || B == null)
@@ -509,15 +509,15 @@ public class BibaryTree {
 	public boolean validateStackSequences(int[] pushed, int[] popped)
 	{
 		/*
-		 * ½£Ö¸ Offer 31. Õ»µÄÑ¹Èë¡¢µ¯³öÐòÁÐ
-		 * ÊäÈëÁ½¸öÕûÊýÐòÁÐ£¬µÚÒ»¸öÐòÁÐ±íÊ¾Õ»µÄÑ¹ÈëË³Ðò£¬ÇëÅÐ¶ÏµÚ¶þ¸öÐòÁÐÊÇ·ñÎª¸ÃÕ»µÄµ¯³öË³Ðò¡£
-		 * ¼ÙÉèÑ¹ÈëÕ»µÄËùÓÐÊý×Ö¾ù²»ÏàµÈ¡£ÀýÈç£¬ÐòÁÐ {1,2,3,4,5} ÊÇÄ³Õ»µÄÑ¹Õ»ÐòÁÐ£¬ÐòÁÐ {4,5,3,2,1} 
-		 * ÊÇ¸ÃÑ¹Õ»ÐòÁÐ¶ÔÓ¦µÄÒ»¸öµ¯³öÐòÁÐ£¬µ« {4,3,5,1,2} ¾Í²»¿ÉÄÜÊÇ¸ÃÑ¹Õ»ÐòÁÐµÄµ¯³öÐòÁÐ¡£
+		 * å‰‘æŒ‡ Offer 31. æ ˆçš„åŽ‹å…¥ã€å¼¹å‡ºåºåˆ—
+		 * è¾“å…¥ä¸¤ä¸ªæ•´æ•°åºåˆ—ï¼Œç¬¬ä¸€ä¸ªåºåˆ—è¡¨ç¤ºæ ˆçš„åŽ‹å…¥é¡ºåºï¼Œè¯·åˆ¤æ–­ç¬¬äºŒä¸ªåºåˆ—æ˜¯å¦ä¸ºè¯¥æ ˆçš„å¼¹å‡ºé¡ºåºã€‚
+		 * å‡è®¾åŽ‹å…¥æ ˆçš„æ‰€æœ‰æ•°å­—å‡ä¸ç›¸ç­‰ã€‚ä¾‹å¦‚ï¼Œåºåˆ— {1,2,3,4,5} æ˜¯æŸæ ˆçš„åŽ‹æ ˆåºåˆ—ï¼Œåºåˆ— {4,5,3,2,1} 
+		 * æ˜¯è¯¥åŽ‹æ ˆåºåˆ—å¯¹åº”çš„ä¸€ä¸ªå¼¹å‡ºåºåˆ—ï¼Œä½† {4,3,5,1,2} å°±ä¸å¯èƒ½æ˜¯è¯¥åŽ‹æ ˆåºåˆ—çš„å¼¹å‡ºåºåˆ—ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÄ£Äâ
-		 * ¸ø¶¨Ò»¸öÑ¹ÈëÐòÁÐ pushed ºÍµ¯³öÐòÁÐ popped£¬ÔòÑ¹Èë / µ¯³ö²Ù×÷µÄË³Ðò£¨¼´ÅÅÁÐ£©ÊÇ Î¨Ò»È·¶¨ µÄ
-		 * ½èÓÃÒ»¸ö¸¨ÖúÕ» stack£¬Ä£Äâ Ñ¹Èë / µ¯³ö²Ù×÷µÄÅÅÁÐ¡£¸ù¾ÝÊÇ·ñÄ£Äâ³É¹¦£¬¼´¿ÉµÃµ½½á¹û
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šæ¨¡æ‹Ÿ
+		 * ç»™å®šä¸€ä¸ªåŽ‹å…¥åºåˆ— pushed å’Œå¼¹å‡ºåºåˆ— poppedï¼Œåˆ™åŽ‹å…¥ / å¼¹å‡ºæ“ä½œçš„é¡ºåºï¼ˆå³æŽ’åˆ—ï¼‰æ˜¯ å”¯ä¸€ç¡®å®š çš„
+		 * å€Ÿç”¨ä¸€ä¸ªè¾…åŠ©æ ˆ stackï¼Œæ¨¡æ‹Ÿ åŽ‹å…¥ / å¼¹å‡ºæ“ä½œçš„æŽ’åˆ—ã€‚æ ¹æ®æ˜¯å¦æ¨¡æ‹ŸæˆåŠŸï¼Œå³å¯å¾—åˆ°ç»“æžœ
 		 * 
 		 * */
 		Stack<Integer> stack = new Stack<>();
@@ -541,12 +541,12 @@ public class BibaryTree {
 	public List<List<Integer>> pathSum(TreeNode root, int target)
 	{
 		 /*
-		  * ½£Ö¸ Offer 34. ¶þ²æÊ÷ÖÐºÍÎªÄ³Ò»ÖµµÄÂ·¾¶
-		  * ÊäÈëÒ»¿Ã¶þ²æÊ÷ºÍÒ»¸öÕûÊý£¬´òÓ¡³ö¶þ²æÊ÷ÖÐ½ÚµãÖµµÄºÍÎªÊäÈëÕûÊýµÄËùÓÐÂ·¾¶¡£
-		  * ´ÓÊ÷µÄ¸ù½Úµã¿ªÊ¼ÍùÏÂÒ»Ö±µ½Ò¶½ÚµãËù¾­¹ýµÄ½ÚµãÐÎ³ÉÒ»ÌõÂ·¾¶¡£
+		  * å‰‘æŒ‡ Offer 34. äºŒå‰æ ‘ä¸­å’Œä¸ºæŸä¸€å€¼çš„è·¯å¾„
+		  * è¾“å…¥ä¸€æ£µäºŒå‰æ ‘å’Œä¸€ä¸ªæ•´æ•°ï¼Œæ‰“å°å‡ºäºŒå‰æ ‘ä¸­èŠ‚ç‚¹å€¼çš„å’Œä¸ºè¾“å…¥æ•´æ•°çš„æ‰€æœ‰è·¯å¾„ã€‚
+		  * ä»Žæ ‘çš„æ ¹èŠ‚ç‚¹å¼€å§‹å¾€ä¸‹ä¸€ç›´åˆ°å¶èŠ‚ç‚¹æ‰€ç»è¿‡çš„èŠ‚ç‚¹å½¢æˆä¸€æ¡è·¯å¾„ã€‚
 		  * 
-		  * Ë¼Â·£º
-		  * ·½·¨1£º»ØËÝ·¨
+		  * æ€è·¯ï¼š
+		  * æ–¹æ³•1ï¼šå›žæº¯æ³•
 		  * *
 		recur(root, target);
 		return res;				
@@ -558,7 +558,7 @@ public class BibaryTree {
 		path.add(root.val);
 		target -= root.val;
 		if(target == 0 && root.left == null && root.right == null)
-			res.add(new LinkedList<Integer>(path));	//¸´ÖÆ1¸öpathµ½res,Èç¹ûÖ±½Ó½«path¼ÓÈëres,Ôòµ±path¸Ä±äÊ±£¬resÖÐµÄÒ²»á±ä
+			res.add(new LinkedList<Integer>(path));	//å¤åˆ¶1ä¸ªpathåˆ°res,å¦‚æžœç›´æŽ¥å°†pathåŠ å…¥res,åˆ™å½“pathæ”¹å˜æ—¶ï¼Œresä¸­çš„ä¹Ÿä¼šå˜
 		recur(root.left, target);
 		recur(root.right, target);
 		path.removeLast();
@@ -585,11 +585,11 @@ public class BibaryTree {
 	public Node treeToDoublyList(Node root)
 	{
 		/*
-		 * ½£Ö¸ Offer 36. ¶þ²æËÑË÷Ê÷ÓëË«ÏòÁ´±í
-		 * ÊäÈëÒ»¿Ã¶þ²æËÑË÷Ê÷£¬½«¸Ã¶þ²æËÑË÷Ê÷×ª»»³ÉÒ»¸öÅÅÐòµÄÑ­»·Ë«ÏòÁ´±í¡£ÒªÇó²»ÄÜ´´½¨ÈÎºÎÐÂµÄ½Úµã£¬Ö»ÄÜµ÷ÕûÊ÷ÖÐ½ÚµãÖ¸ÕëµÄÖ¸Ïò¡£
+		 * å‰‘æŒ‡ Offer 36. äºŒå‰æœç´¢æ ‘ä¸ŽåŒå‘é“¾è¡¨
+		 * è¾“å…¥ä¸€æ£µäºŒå‰æœç´¢æ ‘ï¼Œå°†è¯¥äºŒå‰æœç´¢æ ‘è½¬æ¢æˆä¸€ä¸ªæŽ’åºçš„å¾ªçŽ¯åŒå‘é“¾è¡¨ã€‚è¦æ±‚ä¸èƒ½åˆ›å»ºä»»ä½•æ–°çš„èŠ‚ç‚¹ï¼Œåªèƒ½è°ƒæ•´æ ‘ä¸­èŠ‚ç‚¹æŒ‡é’ˆçš„æŒ‡å‘ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÖÐÐò±éÀú+Éî¶ÈÓÅÏÈËÑË÷µÝ¹é
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šä¸­åºéåŽ†+æ·±åº¦ä¼˜å…ˆæœç´¢é€’å½’
 		 * 
 		 * */
 		if(root == null)

@@ -3,39 +3,39 @@ package demo;
 public class ReplaceString
 {
 	/*
-	 * ��ָ Offer 05. �滻�ո�
-	 * ʵ��һ�����������ַ��� s �е�ÿ���ո��滻��"%20"��
+	 * 剑指 Offer 05. 替换空格
+	 * 实现一个函数，把字符串 s 中的每个空格替换成"%20"。
 	 * 
-	 * ˼·��
-	 * ����1��ʹ��Java�ڲ�����
-	 * ���裺
-	 * �����Է�����
+	 * 思路：
+	 * 方法1：使用Java内部函数
+	 * 步骤：
+	 * 复杂性分析：
 	 * 
-	 * ����2����������
-	 * ˼·��Java���ַ��������Ϊ���ɱ�����ͣ��޷�ֱ���޸�ĳһλ�ַ�����Ҫ�½��ַ���
-	 * ���裺��ʼ��StringBuilder res
-	 * �����ַ���ÿ���ַ�c�� ��cΪ�ո� ����%20����Ϊ�ո�����c
+	 * 方法2：遍历添加
+	 * 思路：Java中字符串被设计为不可变的类型，无法直接修改某一位字符，需要新建字符串
+	 * 步骤：初始化StringBuilder res
+	 * 遍历字符串每个字符c， 若c为空格 添加%20，不为空格，添加c
 	 * 
-	 * �����Է�����ʱ�临�Ӷ�O(n)���ռ临�Ӷ�O(n)
+	 * 复杂性分析：时间复杂度O(n)，空间复杂度O(n)
 	 * 
-	 * ˼·��
-	 * ����3��ʹ���ַ�����
-	 * ���裺
-	 * �����Է�����ʱ�临�Ӷ�O(n)���ռ临�Ӷ�O(n)
+	 * 思路：
+	 * 方法3：使用字符数组
+	 * 步骤：
+	 * 复杂性分析：时间复杂度O(n)，空间复杂度O(n)
 	 * */
 	
 	
 	public String replaceSpace(String s)
 	{
 		/*
-		//����1��ʹ��Java�ڲ�����
+		//方法1：使用Java内部函数
 		String regex = " ";
 		String res = s.replaceAll(regex, "%20");
 		return res;
 		*/
 		
 		/*
-		//����2����������
+		//方法2：遍历添加
 		StringBuilder res = new StringBuilder();
 		for(Character c:s.toCharArray())
 		{
@@ -47,7 +47,7 @@ public class ReplaceString
 		return res.toString();
 		*/
 		
-		//����3��ʹ���ַ�����
+		//方法3：使用字符数组
 		int length = s.length();
         char[] array = new char[length * 3];
         int size = 0;

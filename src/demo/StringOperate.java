@@ -10,18 +10,18 @@ public class StringOperate {
 	public String reverseWords(String s)
 	{
 		/*
-		 * ½£Ö¸ Offer 58 - I. ·­×ªµ¥´ÊË³Ðò
-		 * ÊäÈëÒ»¸öÓ¢ÎÄ¾ä×Ó£¬·­×ª¾ä×ÓÖÐµ¥´ÊµÄË³Ðò£¬µ«µ¥´ÊÄÚ×Ö·ûµÄË³Ðò²»±ä¡£Îª¼òµ¥Æð¼û£¬±êµã·ûºÅºÍÆÕÍ¨×ÖÄ¸Ò»Ñù´¦Àí¡£
-		 * ÀýÈçÊäÈë×Ö·û´®"I am a student. "£¬ÔòÊä³ö"student. a am I"¡£
+		 * å‰‘æŒ‡ Offer 58 - I. ç¿»è½¬å•è¯é¡ºåº
+		 * è¾“å…¥ä¸€ä¸ªè‹±æ–‡å¥å­ï¼Œç¿»è½¬å¥å­ä¸­å•è¯çš„é¡ºåºï¼Œä½†å•è¯å†…å­—ç¬¦çš„é¡ºåºä¸å˜ã€‚ä¸ºç®€å•èµ·è§ï¼Œæ ‡ç‚¹ç¬¦å·å’Œæ™®é€šå­—æ¯ä¸€æ ·å¤„ç†ã€‚
+		 * ä¾‹å¦‚è¾“å…¥å­—ç¬¦ä¸²"I am a student. "ï¼Œåˆ™è¾“å‡º"student. a am I"ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºË«Ö¸Õë
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šåŒæŒ‡é’ˆ
 		 * 
-		 * ·½·¨2£º
+		 * æ–¹æ³•2ï¼š
 		 * */
 		
-		//·½·¨1£ºË«Ö¸Õë
-		s = s.trim();	//É¾³ýÊ×Î²¿Õ¸ñ
+		//æ–¹æ³•1ï¼šåŒæŒ‡é’ˆ
+		s = s.trim();	//åˆ é™¤é¦–å°¾ç©ºæ ¼
 		StringBuilder res = new StringBuilder();
 		int former = s.length() - 1;
 		int latter = former;
@@ -29,14 +29,14 @@ public class StringOperate {
 		{
 			while(former >=0 && s.charAt(former) != ' ')
 				former--;
-			res.append(s.substring(former+1, latter+1) + ' ');	//latter+1µÄÔ­Òò£º×Ó´®¿ªÊ¼ÓÚÖ¸¶¨beginIndex²¢ÑÓÉìµ½×Ö·ûË÷ÒýendIndex - 1
+			res.append(s.substring(former+1, latter+1) + ' ');	//latter+1çš„åŽŸå› ï¼šå­ä¸²å¼€å§‹äºŽæŒ‡å®šbeginIndexå¹¶å»¶ä¼¸åˆ°å­—ç¬¦ç´¢å¼•endIndex - 1
 			while(former >=0 && s.charAt(former) == ' ')
 			{
 				former--;
 			}
 			latter = former;
 		}
-		return res.toString().trim();	//×ª»¯Îª×Ö·û´®£¬É¾³ýÎ²²¿¿Õ¸ñ£¬²¢·µ»Ø
+		return res.toString().trim();	//è½¬åŒ–ä¸ºå­—ç¬¦ä¸²ï¼Œåˆ é™¤å°¾éƒ¨ç©ºæ ¼ï¼Œå¹¶è¿”å›ž
 	}
 	
 	//-------------------------------------------------------------------------
@@ -44,25 +44,25 @@ public class StringOperate {
 	public String reverseLeftWords(String s, int n)
 	{
 		/*
-		 * ½£Ö¸ Offer 58 - II. ×óÐý×ª×Ö·û´®
-		 * ×Ö·û´®µÄ×óÐý×ª²Ù×÷ÊÇ°Ñ×Ö·û´®Ç°ÃæµÄÈô¸É¸ö×Ö·û×ªÒÆµ½×Ö·û´®µÄÎ²²¿¡£Çë¶¨ÒåÒ»¸öº¯ÊýÊµÏÖ×Ö·û´®×óÐý×ª²Ù×÷µÄ¹¦ÄÜ¡£
-		 * ±ÈÈç£¬ÊäÈë×Ö·û´®"abcdefg"ºÍÊý×Ö2£¬¸Ãº¯Êý½«·µ»Ø×óÐý×ªÁ½Î»µÃµ½µÄ½á¹û"cdefgab"¡£
+		 * å‰‘æŒ‡ Offer 58 - II. å·¦æ—‹è½¬å­—ç¬¦ä¸²
+		 * å­—ç¬¦ä¸²çš„å·¦æ—‹è½¬æ“ä½œæ˜¯æŠŠå­—ç¬¦ä¸²å‰é¢çš„è‹¥å¹²ä¸ªå­—ç¬¦è½¬ç§»åˆ°å­—ç¬¦ä¸²çš„å°¾éƒ¨ã€‚è¯·å®šä¹‰ä¸€ä¸ªå‡½æ•°å®žçŽ°å­—ç¬¦ä¸²å·¦æ—‹è½¬æ“ä½œçš„åŠŸèƒ½ã€‚
+		 * æ¯”å¦‚ï¼Œè¾“å…¥å­—ç¬¦ä¸²"abcdefg"å’Œæ•°å­—2ï¼Œè¯¥å‡½æ•°å°†è¿”å›žå·¦æ—‹è½¬ä¸¤ä½å¾—åˆ°çš„ç»“æžœ"cdefgab"ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º×Ö·û´®ÇÐÆ¬
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå­—ç¬¦ä¸²åˆ‡ç‰‡
 		 * 
-		 * ·½·¨2£ºÁÐ±í±éÀúÆ´½Ó
-		 * ²»ÄÜÊ¹ÓÃÇÐÆ¬º¯ÊýÊ±ÔòÓÃ´Ë·½·¨
+		 * æ–¹æ³•2ï¼šåˆ—è¡¨éåŽ†æ‹¼æŽ¥
+		 * ä¸èƒ½ä½¿ç”¨åˆ‡ç‰‡å‡½æ•°æ—¶åˆ™ç”¨æ­¤æ–¹æ³•
 		 * 
-		 * ·½·¨3£º×Ö·û´®±éÀúÆ´½Ó
-		 * Ö»ÄÜÓÃStringÊ±£¬ÓÃ´Ë·½·¨
+		 * æ–¹æ³•3ï¼šå­—ç¬¦ä¸²éåŽ†æ‹¼æŽ¥
+		 * åªèƒ½ç”¨Stringæ—¶ï¼Œç”¨æ­¤æ–¹æ³•
 		 * 
 		 * */
 		
-		//·½·¨1£º×Ö·û´®ÇÐÆ¬
+		//æ–¹æ³•1ï¼šå­—ç¬¦ä¸²åˆ‡ç‰‡
 		//return s.substring(n, s.length()) + s.substring(0, n);
 		
-		//·½·¨2£ºÁÐ±í±éÀúÆ´½Ó
+		//æ–¹æ³•2ï¼šåˆ—è¡¨éåŽ†æ‹¼æŽ¥
 		/*
 		StringBuilder res = new StringBuilder();
 		for(int i = n; i < s.length(); i++)
@@ -71,7 +71,7 @@ public class StringOperate {
 			res.append(s.charAt(i));
 		return res.toString();
 		*/
-		//ÀûÓÃÈ¡ÓàÓÅ»¯´úÂë
+		//åˆ©ç”¨å–ä½™ä¼˜åŒ–ä»£ç 
 		/*
 		StringBuilder res = new StringBuilder();
 		for(int i = n; i < n+s.length(); i++)
@@ -79,7 +79,7 @@ public class StringOperate {
 		return res.toString();
 		*/
 		
-		//·½·¨3£º×Ö·û´®±éÀúÆ´½Ó
+		//æ–¹æ³•3ï¼šå­—ç¬¦ä¸²éåŽ†æ‹¼æŽ¥
 		String res = "";
 		for(int i = n; i < n+s.length(); i++)
 			res += s.charAt(i % s.length());
@@ -93,11 +93,11 @@ public class StringOperate {
 	public String[] permutation(String s)
 	{
 		/*
-		 * ½£Ö¸ Offer 38. ×Ö·û´®µÄÅÅÁÐ
-		 * ÊäÈëÒ»¸ö×Ö·û´®£¬´òÓ¡³ö¸Ã×Ö·û´®ÖÐ×Ö·ûµÄËùÓÐÅÅÁÐ.Äã¿ÉÒÔÒÔÈÎÒâË³Ðò·µ»ØÕâ¸ö×Ö·û´®Êý×é£¬µ«ÀïÃæ²»ÄÜÓÐÖØ¸´ÔªËØ¡£
+		 * å‰‘æŒ‡ Offer 38. å­—ç¬¦ä¸²çš„æŽ’åˆ—
+		 * è¾“å…¥ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œæ‰“å°å‡ºè¯¥å­—ç¬¦ä¸²ä¸­å­—ç¬¦çš„æ‰€æœ‰æŽ’åˆ—.ä½ å¯ä»¥ä»¥ä»»æ„é¡ºåºè¿”å›žè¿™ä¸ªå­—ç¬¦ä¸²æ•°ç»„ï¼Œä½†é‡Œé¢ä¸èƒ½æœ‰é‡å¤å…ƒç´ ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º»ØËÝ·¨¡¢Éî¶ÈÓÅÏÈËÑË÷¡¢¼ôÖ¦
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå›žæº¯æ³•ã€æ·±åº¦ä¼˜å…ˆæœç´¢ã€å‰ªæž
 		 * */
 		c = s.toCharArray();
 		depthFirstSearch(0);

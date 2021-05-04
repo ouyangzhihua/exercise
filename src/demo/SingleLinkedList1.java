@@ -12,24 +12,24 @@ public class SingleLinkedList1 {
 	public ListNode getKthFromEnd(ListNode head, int k)
 	{
 		/*
-		 * ½£Ö¸ Offer 22. Á´±íÖÐµ¹ÊýµÚk¸ö½Úµã
-		 * ÊäÈëÒ»¸öÁ´±í£¬Êä³ö¸ÃÁ´±íÖÐµ¹ÊýµÚk¸ö½Úµã¡£ÎªÁË·ûºÏ´ó¶àÊýÈËµÄÏ°¹ß£¬±¾Ìâ´Ó1¿ªÊ¼¼ÆÊý£¬¼´Á´±íµÄÎ²½ÚµãÊÇµ¹ÊýµÚ1¸ö½Úµã¡£
-		 * ÀýÈç£¬Ò»¸öÁ´±íÓÐ 6 ¸ö½Úµã£¬´ÓÍ·½Úµã¿ªÊ¼£¬ËüÃÇµÄÖµÒÀ´ÎÊÇ 1¡¢2¡¢3¡¢4¡¢5¡¢6¡£
-		 * Õâ¸öÁ´±íµÄµ¹ÊýµÚ 3 ¸ö½ÚµãÊÇÖµÎª 4 µÄ½Úµã¡£
+		 * å‰‘æŒ‡ Offer 22. é“¾è¡¨ä¸­å€’æ•°ç¬¬kä¸ªèŠ‚ç‚¹
+		 * è¾“å…¥ä¸€ä¸ªé“¾è¡¨ï¼Œè¾“å‡ºè¯¥é“¾è¡¨ä¸­å€’æ•°ç¬¬kä¸ªèŠ‚ç‚¹ã€‚ä¸ºäº†ç¬¦åˆå¤§å¤šæ•°äººçš„ä¹ æƒ¯ï¼Œæœ¬é¢˜ä»Ž1å¼€å§‹è®¡æ•°ï¼Œå³é“¾è¡¨çš„å°¾èŠ‚ç‚¹æ˜¯å€’æ•°ç¬¬1ä¸ªèŠ‚ç‚¹ã€‚
+		 * ä¾‹å¦‚ï¼Œä¸€ä¸ªé“¾è¡¨æœ‰ 6 ä¸ªèŠ‚ç‚¹ï¼Œä»Žå¤´èŠ‚ç‚¹å¼€å§‹ï¼Œå®ƒä»¬çš„å€¼ä¾æ¬¡æ˜¯ 1ã€2ã€3ã€4ã€5ã€6ã€‚
+		 * è¿™ä¸ªé“¾è¡¨çš„å€’æ•°ç¬¬ 3 ä¸ªèŠ‚ç‚¹æ˜¯å€¼ä¸º 4 çš„èŠ‚ç‚¹ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºË«Ö¸Õë
-		 * ¶¨ÒåÁ½¸öÖ¸Õë£¬Ç°Ö¸ÕëÏÈ×ßk²½£¬È»ºóÔÚÒ»ÆðÒÆ¶¯£¬Ö±µ½Ç°Ö¸Õë×ß¹ýÁ´±íÎ²½Úµã£¬´ËÊ±ºóÖ¸Õë¼´µ½ÁËµ¹ÊýµÚk¸ö
-		 * ²½Öè£º
-		 * ×¢Òâ´úÂëµÄÂ³°ôÐÔ
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šåŒæŒ‡é’ˆ
+		 * å®šä¹‰ä¸¤ä¸ªæŒ‡é’ˆï¼Œå‰æŒ‡é’ˆå…ˆèµ°kæ­¥ï¼Œç„¶åŽåœ¨ä¸€èµ·ç§»åŠ¨ï¼Œç›´åˆ°å‰æŒ‡é’ˆèµ°è¿‡é“¾è¡¨å°¾èŠ‚ç‚¹ï¼Œæ­¤æ—¶åŽæŒ‡é’ˆå³åˆ°äº†å€’æ•°ç¬¬kä¸ª
+		 * æ­¥éª¤ï¼š
+		 * æ³¨æ„ä»£ç çš„é²æ£’æ€§
 		 * */
-		if(head == null || k <= 0)	//±ß½çÅÐ¶Ï£¬±ÜÃâÊäÈë²»ºÏ·¨µ¼ÖÂ³ÌÐò±ÀÀ£
+		if(head == null || k <= 0)	//è¾¹ç•Œåˆ¤æ–­ï¼Œé¿å…è¾“å…¥ä¸åˆæ³•å¯¼è‡´ç¨‹åºå´©æºƒ
 			return null;
 		ListNode former = head;
 		ListNode latter = head;
 		for( ; k > 0; k--)
 		{
-			if(former == null)	//Èôk>Á´±í½ÚµãÊý£¬Ó¦·µ»Ø´íÎó
+			if(former == null)	//è‹¥k>é“¾è¡¨èŠ‚ç‚¹æ•°ï¼Œåº”è¿”å›žé”™è¯¯
 				return null;
 			former = former.next;	
 		}
@@ -46,13 +46,13 @@ public class SingleLinkedList1 {
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2)
 	{
 		/*
-		 * ½£Ö¸ Offer 25. ºÏ²¢Á½¸öÅÅÐòµÄÁ´±í
-		 * ÊäÈëÁ½¸öµÝÔöÅÅÐòµÄÁ´±í£¬ºÏ²¢ÕâÁ½¸öÁ´±í²¢Ê¹ÐÂÁ´±íÖÐµÄ½ÚµãÈÔÈ»ÊÇµÝÔöÅÅÐòµÄ¡£
+		 * å‰‘æŒ‡ Offer 25. åˆå¹¶ä¸¤ä¸ªæŽ’åºçš„é“¾è¡¨
+		 * è¾“å…¥ä¸¤ä¸ªé€’å¢žæŽ’åºçš„é“¾è¡¨ï¼Œåˆå¹¶è¿™ä¸¤ä¸ªé“¾è¡¨å¹¶ä½¿æ–°é“¾è¡¨ä¸­çš„èŠ‚ç‚¹ä»ç„¶æ˜¯é€’å¢žæŽ’åºçš„ã€‚
 		 * 
-		 * Ë¼Â·£º
+		 * æ€è·¯ï¼š
 		 * 
 		 * */
-		if(l1 == null && l2 == null)	//ÅÐ¶ÏÊäÈëºÏ·¨ÐÔ
+		if(l1 == null && l2 == null)	//åˆ¤æ–­è¾“å…¥åˆæ³•æ€§
 			return null;
 		ListNode m = new ListNode(0);
 		ListNode cur = m;
@@ -82,16 +82,16 @@ public class SingleLinkedList1 {
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB)
 	{
 		/*
-		 * ½£Ö¸ Offer 52. Á½¸öÁ´±íµÄµÚÒ»¸ö¹«¹²½Úµã
-		 * ÊäÈëÁ½¸öÁ´±í£¬ÕÒ³öËüÃÇµÄµÚÒ»¸ö¹«¹²½Úµã
+		 * å‰‘æŒ‡ Offer 52. ä¸¤ä¸ªé“¾è¡¨çš„ç¬¬ä¸€ä¸ªå…¬å…±èŠ‚ç‚¹
+		 * è¾“å…¥ä¸¤ä¸ªé“¾è¡¨ï¼Œæ‰¾å‡ºå®ƒä»¬çš„ç¬¬ä¸€ä¸ªå…¬å…±èŠ‚ç‚¹
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºË«Ö¸Õë
-		 * Á½¸öÁ´±íµÄ½»µãÖ®ºóËùÓÐ½Úµã¶¼ÊÇÒ»ÑùµÄ£¬Ö»ÓÐ½»µãÖ®Ç°µÄ½Úµã²»Í¬¡£
-		 * ÓÃÁ½¸öÖ¸Õë·Ö±ð´ÓheadAºÍheadB³ö·¢±éÀúÁ´±í£¬Èç¹ûµ½´ïÁ´±íÎ²ÔòÌøµ½ÁíÒ»Á´±íÍ·½Úµã¼ÌÐø±éÀú£¬µ±Á½Ö¸ÕëÏàÓöÊ±ÔòÎªÏà½»½Úµã
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šåŒæŒ‡é’ˆ
+		 * ä¸¤ä¸ªé“¾è¡¨çš„äº¤ç‚¹ä¹‹åŽæ‰€æœ‰èŠ‚ç‚¹éƒ½æ˜¯ä¸€æ ·çš„ï¼Œåªæœ‰äº¤ç‚¹ä¹‹å‰çš„èŠ‚ç‚¹ä¸åŒã€‚
+		 * ç”¨ä¸¤ä¸ªæŒ‡é’ˆåˆ†åˆ«ä»ŽheadAå’ŒheadBå‡ºå‘éåŽ†é“¾è¡¨ï¼Œå¦‚æžœåˆ°è¾¾é“¾è¡¨å°¾åˆ™è·³åˆ°å¦ä¸€é“¾è¡¨å¤´èŠ‚ç‚¹ç»§ç»­éåŽ†ï¼Œå½“ä¸¤æŒ‡é’ˆç›¸é‡æ—¶åˆ™ä¸ºç›¸äº¤èŠ‚ç‚¹
 		 * 
-		 * ²½Öè£º
-		 * ÌØÀý´¦Àí£ºÊäÈëÎª¿Õ
+		 * æ­¥éª¤ï¼š
+		 * ç‰¹ä¾‹å¤„ç†ï¼šè¾“å…¥ä¸ºç©º
 		 * */
 		if(headA == null || headB == null)
 			return null;
@@ -128,17 +128,17 @@ public class SingleLinkedList1 {
 	public Node copyRandomList(Node head)
 	{
 		/*
-		 * ½£Ö¸ Offer 35. ¸´ÔÓÁ´±íµÄ¸´ÖÆ
-		 * ÇëÊµÏÖ copyRandomList º¯Êý£¬¸´ÖÆÒ»¸ö¸´ÔÓÁ´±í¡£ÔÚ¸´ÔÓÁ´±íÖÐ£¬Ã¿¸ö½Úµã³ýÁËÓÐÒ»¸ö next Ö¸ÕëÖ¸ÏòÏÂÒ»¸ö½Úµã£¬
-		 * »¹ÓÐÒ»¸ö random Ö¸ÕëÖ¸ÏòÁ´±íÖÐµÄÈÎÒâ½Úµã»òÕß null
+		 * å‰‘æŒ‡ Offer 35. å¤æ‚é“¾è¡¨çš„å¤åˆ¶
+		 * è¯·å®žçŽ° copyRandomList å‡½æ•°ï¼Œå¤åˆ¶ä¸€ä¸ªå¤æ‚é“¾è¡¨ã€‚åœ¨å¤æ‚é“¾è¡¨ä¸­ï¼Œæ¯ä¸ªèŠ‚ç‚¹é™¤äº†æœ‰ä¸€ä¸ª next æŒ‡é’ˆæŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ï¼Œ
+		 * è¿˜æœ‰ä¸€ä¸ª random æŒ‡é’ˆæŒ‡å‘é“¾è¡¨ä¸­çš„ä»»æ„èŠ‚ç‚¹æˆ–è€… null
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º¹þÏ£±í
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå“ˆå¸Œè¡¨
 		 * 
-		 * ·½·¨2£ºÆ´½Ó + ²ð·Ö
+		 * æ–¹æ³•2ï¼šæ‹¼æŽ¥ + æ‹†åˆ†
 		 * 
 		 * */
-		//·½·¨1£º¹þÏ£±í
+		//æ–¹æ³•1ï¼šå“ˆå¸Œè¡¨
 		/*
 		if(head == null)
 			return null;
@@ -158,7 +158,7 @@ public class SingleLinkedList1 {
 		}
 		return map.get(head);
 		
-		//·½·¨2£ºÆ´½Ó + ²ð·Ö
+		//æ–¹æ³•2ï¼šæ‹¼æŽ¥ + æ‹†åˆ†
 		if(head == null)
 			return null;
 		Node cur = head;
@@ -209,11 +209,11 @@ public class SingleLinkedList1 {
 	public Node treeToDoublyList(Node root)
 	{
 		/*
-		 * ½£Ö¸ Offer 36. ¶þ²æËÑË÷Ê÷ÓëË«ÏòÁ´±í
-		 * ÊäÈëÒ»¿Ã¶þ²æËÑË÷Ê÷£¬½«¸Ã¶þ²æËÑË÷Ê÷×ª»»³ÉÒ»¸öÅÅÐòµÄÑ­»·Ë«ÏòÁ´±í¡£ÒªÇó²»ÄÜ´´½¨ÈÎºÎÐÂµÄ½Úµã£¬Ö»ÄÜµ÷ÕûÊ÷ÖÐ½ÚµãÖ¸ÕëµÄÖ¸Ïò¡£
+		 * å‰‘æŒ‡ Offer 36. äºŒå‰æœç´¢æ ‘ä¸ŽåŒå‘é“¾è¡¨
+		 * è¾“å…¥ä¸€æ£µäºŒå‰æœç´¢æ ‘ï¼Œå°†è¯¥äºŒå‰æœç´¢æ ‘è½¬æ¢æˆä¸€ä¸ªæŽ’åºçš„å¾ªçŽ¯åŒå‘é“¾è¡¨ã€‚è¦æ±‚ä¸èƒ½åˆ›å»ºä»»ä½•æ–°çš„èŠ‚ç‚¹ï¼Œåªèƒ½è°ƒæ•´æ ‘ä¸­èŠ‚ç‚¹æŒ‡é’ˆçš„æŒ‡å‘ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÖÐÐò±éÀú+Éî¶ÈÓÅÏÈËÑË÷µÝ¹é
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šä¸­åºéåŽ†+æ·±åº¦ä¼˜å…ˆæœç´¢é€’å½’
 		 * 
 		 * */
 		if(root == null)

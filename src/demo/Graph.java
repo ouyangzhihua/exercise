@@ -8,32 +8,32 @@ public class Graph {
 	public boolean exist(char[][] board, String word)
 	{
 		/*
-		 * ½£Ö¸ Offer 12. ¾ØÕóÖÐµÄÂ·¾¶
-		 * ÇëÉè¼ÆÒ»¸öº¯Êý£¬ÓÃÀ´ÅÐ¶ÏÔÚÒ»¸ö¾ØÕóÖÐÊÇ·ñ´æÔÚÒ»Ìõ°üº¬Ä³×Ö·û´®ËùÓÐ×Ö·ûµÄÂ·¾¶¡£
-		 * Â·¾¶¿ÉÒÔ´Ó¾ØÕóÖÐµÄÈÎÒâÒ»¸ñ¿ªÊ¼£¬Ã¿Ò»²½¿ÉÒÔÔÚ¾ØÕóÖÐÏò×ó¡¢ÓÒ¡¢ÉÏ¡¢ÏÂÒÆ¶¯Ò»¸ñ¡£
-		 * Èç¹ûÒ»ÌõÂ·¾¶¾­¹ýÁË¾ØÕóµÄÄ³Ò»¸ñ£¬ÄÇÃ´¸ÃÂ·¾¶²»ÄÜÔÙ´Î½øÈë¸Ã¸ñ×Ó¡£
-		 * ÀýÈç£¬ÔÚÏÂÃæµÄ3¡Á4µÄ¾ØÕóÖÐ°üº¬Ò»Ìõ×Ö·û´®¡°bfce¡±µÄÂ·¾¶£¨Â·¾¶ÖÐµÄ×ÖÄ¸ÓÃ¼Ó´Ö±ê³ö£©¡£
+		 * å‰‘æŒ‡ Offer 12. çŸ©é˜µä¸­çš„è·¯å¾„
+		 * è¯·è®¾è®¡ä¸€ä¸ªå‡½æ•°ï¼Œç”¨æ¥åˆ¤æ–­åœ¨ä¸€ä¸ªçŸ©é˜µä¸­æ˜¯å¦å­˜åœ¨ä¸€æ¡åŒ…å«æŸå­—ç¬¦ä¸²æ‰€æœ‰å­—ç¬¦çš„è·¯å¾„ã€‚
+		 * è·¯å¾„å¯ä»¥ä»ŽçŸ©é˜µä¸­çš„ä»»æ„ä¸€æ ¼å¼€å§‹ï¼Œæ¯ä¸€æ­¥å¯ä»¥åœ¨çŸ©é˜µä¸­å‘å·¦ã€å³ã€ä¸Šã€ä¸‹ç§»åŠ¨ä¸€æ ¼ã€‚
+		 * å¦‚æžœä¸€æ¡è·¯å¾„ç»è¿‡äº†çŸ©é˜µçš„æŸä¸€æ ¼ï¼Œé‚£ä¹ˆè¯¥è·¯å¾„ä¸èƒ½å†æ¬¡è¿›å…¥è¯¥æ ¼å­ã€‚
+		 * ä¾‹å¦‚ï¼Œåœ¨ä¸‹é¢çš„3Ã—4çš„çŸ©é˜µä¸­åŒ…å«ä¸€æ¡å­—ç¬¦ä¸²â€œbfceâ€çš„è·¯å¾„ï¼ˆè·¯å¾„ä¸­çš„å­—æ¯ç”¨åŠ ç²—æ ‡å‡ºï¼‰ã€‚
 		 * [["a","b","c","e"],
 		 * ["s","f","c","s"],
 		 * ["a","d","e","e"]]
-		 * µ«¾ØÕóÖÐ²»°üº¬×Ö·û´®¡°abfb¡±µÄÂ·¾¶£¬ÒòÎª×Ö·û´®µÄµÚÒ»¸ö×Ö·ûbÕ¼¾ÝÁË¾ØÕóÖÐµÄµÚÒ»ÐÐµÚ¶þ¸ö¸ñ×ÓÖ®ºó£¬Â·¾¶²»ÄÜÔÙ´Î½øÈëÕâ¸ö¸ñ×Ó¡£
+		 * ä½†çŸ©é˜µä¸­ä¸åŒ…å«å­—ç¬¦ä¸²â€œabfbâ€çš„è·¯å¾„ï¼Œå› ä¸ºå­—ç¬¦ä¸²çš„ç¬¬ä¸€ä¸ªå­—ç¬¦bå æ®äº†çŸ©é˜µä¸­çš„ç¬¬ä¸€è¡Œç¬¬äºŒä¸ªæ ¼å­ä¹‹åŽï¼Œè·¯å¾„ä¸èƒ½å†æ¬¡è¿›å…¥è¿™ä¸ªæ ¼å­ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÉî¶ÈÓÅÏÈËÑË÷DFS+¼ôÖ¦
-		 * ¼ôÖ¦£ºÔÚËÑË÷ÖÐ£¬Óöµ½ÕâÌõÂ·²»¿ÉÄÜÓëÄ¿±ê×Ö·û´®Æ¥Åä³É¹¦£¬ÔòÓ¦Á¢¼´·µ»Ø¡£
-		 * µÝ¹é²ÎÊý£ºboardµÄÐÐÁÐË÷Òýrow,col£¬µ±Ç°Ä¿±ê×Ö·ûÔÚwordÖÐµÄË÷Òýk
-		 * ÖÕÖ¹Ìõ¼þ£º
-		 * 1£¬·µ»Øfalse£ºÐÐÁÐË÷ÒýÔ½½ç »ò µ±Ç°¾ØÕóÔªËØÓëÄ¿±ê×Ö·û²»Í¬ »ò µ±Ç°¾ØÕóÔªËØÒÑ3·ÃÎÊ¹ý
-		 * 2,·µ»Øtrue£º k = word.length-1
-		 * ²½Öè£º
-		 * 1£¬±ê¼Çµ±Ç°¾ØÕóÔªËØ£¬½«ÆäÐÞ¸ÄÎª¿Õ×Ö·û
-		 * 2£¬ÏòÉÏÏÂ×óÓÒËÑË÷
-		 * 3£¬½«µ±Ç°¾ØÕóÔªËØÐÞ¸ÄÎªÔ­À´µÄÖµ£¬¼´word[k]
-		 * ¸´ÔÓ¶È·ÖÎö£º
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šæ·±åº¦ä¼˜å…ˆæœç´¢DFS+å‰ªæž
+		 * å‰ªæžï¼šåœ¨æœç´¢ä¸­ï¼Œé‡åˆ°è¿™æ¡è·¯ä¸å¯èƒ½ä¸Žç›®æ ‡å­—ç¬¦ä¸²åŒ¹é…æˆåŠŸï¼Œåˆ™åº”ç«‹å³è¿”å›žã€‚
+		 * é€’å½’å‚æ•°ï¼šboardçš„è¡Œåˆ—ç´¢å¼•row,colï¼Œå½“å‰ç›®æ ‡å­—ç¬¦åœ¨wordä¸­çš„ç´¢å¼•k
+		 * ç»ˆæ­¢æ¡ä»¶ï¼š
+		 * 1ï¼Œè¿”å›žfalseï¼šè¡Œåˆ—ç´¢å¼•è¶Šç•Œ æˆ– å½“å‰çŸ©é˜µå…ƒç´ ä¸Žç›®æ ‡å­—ç¬¦ä¸åŒ æˆ– å½“å‰çŸ©é˜µå…ƒç´ å·²3è®¿é—®è¿‡
+		 * 2,è¿”å›žtrueï¼š k = word.length-1
+		 * æ­¥éª¤ï¼š
+		 * 1ï¼Œæ ‡è®°å½“å‰çŸ©é˜µå…ƒç´ ï¼Œå°†å…¶ä¿®æ”¹ä¸ºç©ºå­—ç¬¦
+		 * 2ï¼Œå‘ä¸Šä¸‹å·¦å³æœç´¢
+		 * 3ï¼Œå°†å½“å‰çŸ©é˜µå…ƒç´ ä¿®æ”¹ä¸ºåŽŸæ¥çš„å€¼ï¼Œå³word[k]
+		 * å¤æ‚åº¦åˆ†æžï¼š
 		 * 
 		 * */
 		
-		//·½·¨1£ºÉî¶ÈÓÅÏÈËÑË÷DFS+¼ôÖ¦
+		//æ–¹æ³•1ï¼šæ·±åº¦ä¼˜å…ˆæœç´¢DFS+å‰ªæž
 		char[] words = word.toCharArray();
 		for(int row = 0; row < board.length; row++)
 			for(int col = 0; col < board[0].length; col++)
@@ -48,7 +48,7 @@ public class Graph {
 			return false;
 		if(k == words.length-1)
 			return true;
-		board[row][col] = '\0';	//¿Õ×Ö·û
+		board[row][col] = '\0';	//ç©ºå­—ç¬¦
 		boolean res = deepFirstSearch(board, words, row-1, col, k+1) || deepFirstSearch(board, words, row+1, col, k+1) ||
 			  deepFirstSearch(board, words, row, col-1, k+1) || deepFirstSearch(board, words, row, col+1, k+1);
 		board[row][col] = words[k];
@@ -59,48 +59,48 @@ public class Graph {
 	public int movingCount(int m, int n, int k)
 	{
 		/*
-		 * ½£Ö¸ Offer 13. »úÆ÷ÈËµÄÔË¶¯·¶Î§
-		 * µØÉÏÓÐÒ»¸ömÐÐnÁÐµÄ·½¸ñ£¬´Ó×ø±ê [0,0] µ½×ø±ê [m-1,n-1] ¡£
-		 * Ò»¸ö»úÆ÷ÈË´Ó×ø±ê [0, 0] µÄ¸ñ×Ó¿ªÊ¼ÒÆ¶¯£¬ËüÃ¿´Î¿ÉÒÔÏò×ó¡¢ÓÒ¡¢ÉÏ¡¢ÏÂÒÆ¶¯Ò»¸ñ£¨²»ÄÜÒÆ¶¯µ½·½¸ñÍâ£©£¬
-		 * Ò²²»ÄÜ½øÈëÐÐ×ø±êºÍÁÐ×ø±êµÄÊýÎ»Ö®ºÍ´óÓÚkµÄ¸ñ×Ó¡£
-		 * ÀýÈç£¬µ±kÎª18Ê±£¬»úÆ÷ÈËÄÜ¹»½øÈë·½¸ñ [35, 37] £¬ÒòÎª3+5+3+7=18¡£
-		 * µ«Ëü²»ÄÜ½øÈë·½¸ñ [35, 38]£¬ÒòÎª3+5+3+8=19¡£ÇëÎÊ¸Ã»úÆ÷ÈËÄÜ¹»µ½´ï¶àÉÙ¸ö¸ñ×Ó
+		 * å‰‘æŒ‡ Offer 13. æœºå™¨äººçš„è¿åŠ¨èŒƒå›´
+		 * åœ°ä¸Šæœ‰ä¸€ä¸ªmè¡Œnåˆ—çš„æ–¹æ ¼ï¼Œä»Žåæ ‡ [0,0] åˆ°åæ ‡ [m-1,n-1] ã€‚
+		 * ä¸€ä¸ªæœºå™¨äººä»Žåæ ‡ [0, 0] çš„æ ¼å­å¼€å§‹ç§»åŠ¨ï¼Œå®ƒæ¯æ¬¡å¯ä»¥å‘å·¦ã€å³ã€ä¸Šã€ä¸‹ç§»åŠ¨ä¸€æ ¼ï¼ˆä¸èƒ½ç§»åŠ¨åˆ°æ–¹æ ¼å¤–ï¼‰ï¼Œ
+		 * ä¹Ÿä¸èƒ½è¿›å…¥è¡Œåæ ‡å’Œåˆ—åæ ‡çš„æ•°ä½ä¹‹å’Œå¤§äºŽkçš„æ ¼å­ã€‚
+		 * ä¾‹å¦‚ï¼Œå½“kä¸º18æ—¶ï¼Œæœºå™¨äººèƒ½å¤Ÿè¿›å…¥æ–¹æ ¼ [35, 37] ï¼Œå› ä¸º3+5+3+7=18ã€‚
+		 * ä½†å®ƒä¸èƒ½è¿›å…¥æ–¹æ ¼ [35, 38]ï¼Œå› ä¸º3+5+3+8=19ã€‚è¯·é—®è¯¥æœºå™¨äººèƒ½å¤Ÿåˆ°è¾¾å¤šå°‘ä¸ªæ ¼å­
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º¹ã¶ÈÓÅÏÈËÑË÷·¨
-		 * ÒªÅÐ¶ÏÄ³Ò»¸ñÄÜ·ñµ½´ï£¬Ö»ÄÜÒ»¸ñÒ»¸ñ×ß¹ýÈ¥
-		 * Í¨¹ý¶ÔÊýÈ¡Óà¿ÉÒÔ¼ÆËãÊýÎ»Ö®ºÍ
-		 * ²½Öè£º
-		 * ¸´ÔÓ¶È·ÖÎö£º
-		 * Ê±¼ä¸´ÔÓ¶È£ºO(mn),¿Õ¼ä¸´ÔÓ¶ÈO(mn)
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå¹¿åº¦ä¼˜å…ˆæœç´¢æ³•
+		 * è¦åˆ¤æ–­æŸä¸€æ ¼èƒ½å¦åˆ°è¾¾ï¼Œåªèƒ½ä¸€æ ¼ä¸€æ ¼èµ°è¿‡åŽ»
+		 * é€šè¿‡å¯¹æ•°å–ä½™å¯ä»¥è®¡ç®—æ•°ä½ä¹‹å’Œ
+		 * æ­¥éª¤ï¼š
+		 * å¤æ‚åº¦åˆ†æžï¼š
+		 * æ—¶é—´å¤æ‚åº¦ï¼šO(mn),ç©ºé—´å¤æ‚åº¦O(mn)
 		 * 
-		 * ·½·¨2£ºµÝÍÆ
-		 * Ë¼Â·£ºÓÉÓÚËÑË÷µÄ·½ÏòÖ»ÓÐÏòÓÒºÍÏòÏÂ£¬Òò´Ë¿¼ÂÇµÝÍÆ
-		 * ÓÃvis[row][col]±íÊ¾[row][col]ÊÇ·ñ¿É´ï£¬ÅÐ¶ÏÎ»ÖÃ[row][col]¿É´ïÇ°£¬ÏÈÅÐ¶ÏÊÇ·ñÂú×ãÊýÎ»Ìõ¼þ
-		 * ÈôÂú×ãÊýÎ»Ìõ¼þ£¬[row][col]¿É´ï£¬ÐèÒª[row-1][col]¿É´ï»ò[row][col-1]¿É´ï
-		 * ²½Öè£º
-		 * Ê±¼ä¸´ÔÓ¶È£ºO(mn),¿Õ¼ä¸´ÔÓ¶ÈO(mn)
+		 * æ–¹æ³•2ï¼šé€’æŽ¨
+		 * æ€è·¯ï¼šç”±äºŽæœç´¢çš„æ–¹å‘åªæœ‰å‘å³å’Œå‘ä¸‹ï¼Œå› æ­¤è€ƒè™‘é€’æŽ¨
+		 * ç”¨vis[row][col]è¡¨ç¤º[row][col]æ˜¯å¦å¯è¾¾ï¼Œåˆ¤æ–­ä½ç½®[row][col]å¯è¾¾å‰ï¼Œå…ˆåˆ¤æ–­æ˜¯å¦æ»¡è¶³æ•°ä½æ¡ä»¶
+		 * è‹¥æ»¡è¶³æ•°ä½æ¡ä»¶ï¼Œ[row][col]å¯è¾¾ï¼Œéœ€è¦[row-1][col]å¯è¾¾æˆ–[row][col-1]å¯è¾¾
+		 * æ­¥éª¤ï¼š
+		 * æ—¶é—´å¤æ‚åº¦ï¼šO(mn),ç©ºé—´å¤æ‚åº¦O(mn)
 		 * 
-		 * ·½·¨3£ºÉî¶ÈÓÅÏÈËÑË÷
-		 * Ë¼Â·£º
-		 * ²½Öè£º
-		 * ¸´ÔÓ¶È·ÖÎö£º
+		 * æ–¹æ³•3ï¼šæ·±åº¦ä¼˜å…ˆæœç´¢
+		 * æ€è·¯ï¼š
+		 * æ­¥éª¤ï¼š
+		 * å¤æ‚åº¦åˆ†æžï¼š
 		 * */
 		
-		//·½·¨1£º¹ã¶ÈÓÅÏÈËÑË÷·¨
+		//æ–¹æ³•1ï¼šå¹¿åº¦ä¼˜å…ˆæœç´¢æ³•
 		/*
 		if(k == 0)
-			return 1;	//µ±k=0Ê±£¬±ÜÃâ½øÈëºóÃæ²»±ØÒªµÄ²Ù×÷£¬Ìá¸ßÐÔÄÜ¡£²»¼ÓÕâÒ»ÅÐ¶Ï½á¹ûÒ²ÕýÈ·
+			return 1;	//å½“k=0æ—¶ï¼Œé¿å…è¿›å…¥åŽé¢ä¸å¿…è¦çš„æ“ä½œï¼Œæé«˜æ€§èƒ½ã€‚ä¸åŠ è¿™ä¸€åˆ¤æ–­ç»“æžœä¹Ÿæ­£ç¡®
 		Queue<int[]> que = new LinkedList<int[]>();
-		int[] dright = {1, 0};	//ÏòÓÒÊý×é
-		int[] ddown = {0, 1};	//ÏòÏÂÊý×é
+		int[] dright = {1, 0};	//å‘å³æ•°ç»„
+		int[] ddown = {0, 1};	//å‘ä¸‹æ•°ç»„
 		boolean[][] vis = new boolean[m][n];
-		que.offer(new int[] {0,0});	//½«Ö¸¶¨µÄÔªËØÌí¼ÓÎª´ËÁÐ±íµÄÎ²²¿£¨×îºóÒ»¸öÔªËØ£©¡£
-		vis[0][0] = true;	//»úÆ÷ÈËÆðµã
-		int count = 1;	//ÀÛ¼ÆÄÜµ½µÄ¸ñ×Ó
+		que.offer(new int[] {0,0});	//å°†æŒ‡å®šçš„å…ƒç´ æ·»åŠ ä¸ºæ­¤åˆ—è¡¨çš„å°¾éƒ¨ï¼ˆæœ€åŽä¸€ä¸ªå…ƒç´ ï¼‰ã€‚
+		vis[0][0] = true;	//æœºå™¨äººèµ·ç‚¹
+		int count = 1;	//ç´¯è®¡èƒ½åˆ°çš„æ ¼å­
 		while(!que.isEmpty())
 		{
-			int[] cell = que.poll();	//¼ìË÷²¢É¾³ý´ËÁÐ±íµÄÍ·£¨µÚÒ»¸öÔªËØ£©
+			int[] cell = que.poll();	//æ£€ç´¢å¹¶åˆ é™¤æ­¤åˆ—è¡¨çš„å¤´ï¼ˆç¬¬ä¸€ä¸ªå…ƒç´ ï¼‰
 			int right = cell[0];
 			int down = cell[1];
 			for(int i = 0; i < 2; i++)
@@ -110,27 +110,27 @@ public class Graph {
 				int sumn = getValue(nright) + getValue(ndown);
 				if(nright < 0 || nright >=m || ndown < 0 || ndown >= n || vis[nright][ndown] || sumn > k)
 					continue;
-				que.offer(new int[] {nright, ndown});	//½«ÄÜµ½´ïµÄ¸ñ×Ó¼ÓÈëÁ´±í
-				vis[nright][ndown] = true;	//±íÊ¾´Ë×ø±êÄÜµ½´ï
-				count++;	//¸ñ×Ó¼ÇÊý¼Ó1
+				que.offer(new int[] {nright, ndown});	//å°†èƒ½åˆ°è¾¾çš„æ ¼å­åŠ å…¥é“¾è¡¨
+				vis[nright][ndown] = true;	//è¡¨ç¤ºæ­¤åæ ‡èƒ½åˆ°è¾¾
+				count++;	//æ ¼å­è®°æ•°åŠ 1
 			}
 		}
 		return count;
 		*/
 		
-		//·½·¨2£ºµÝÍÆ
+		//æ–¹æ³•2ï¼šé€’æŽ¨
 		/*
 		boolean[][] vis = new boolean[m][n];
 		int count = 0;
 		vis[0][0] = true;
-		//±éÀú
+		//éåŽ†
 		for(int row = 0; row < m; row++)
 		{
 			for(int col = 0; col < n; col++)
 			{
 				if((row == 0 && col == 0) || getValue(row)+getValue(col) > k)
 					continue;
-				//±ß½çÅÐ¶Ï
+				//è¾¹ç•Œåˆ¤æ–­
 				if(row-1 >= 0)
 					vis[row][col] |= vis[row-1][col];
 				if(col-1 >= 0)
@@ -141,7 +141,7 @@ public class Graph {
 		return count;	
 		*/
 		
-		//·½·¨3£ºÉî¶ÈÓÅÏÈËÑË÷	
+		//æ–¹æ³•3ï¼šæ·±åº¦ä¼˜å…ˆæœç´¢	
 		this.vis = new boolean[m][n];
 		this.m = m;
 		this.n = n;

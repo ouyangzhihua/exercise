@@ -5,17 +5,17 @@ import java.util.*;
 
 public class DoublePointer {
 	/*
-	 * ˫ָ�룺ͨ��Ϊ�˼��ٱ����������ھ��������ʹ������ָ�룬�����ָ�룬ǰ��ָ�룬��βָ���
+	 * 双指针：通常为了减少遍历，可以在具体情况中使用两个指针，如快慢指针，前后指针，首尾指针等 
 	 * 
 	 * */
 	
 	public int[] exchange(int[] nums)
 	{
 		/*
-		 * ��ָ Offer 21. ��������˳��ʹ����λ��ż��ǰ��
-		 * ����һ���������飬ʵ��һ�����������������������ֵ�˳��ʹ����������λ�������ǰ�벿�֣�����ż��λ������ĺ�벿�֡�
+		 * 剑指 Offer 21. 调整数组顺序使奇数位于偶数前面
+		 * 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
 		 */
-		//����1������ָ��
+		//方法1：快慢指针
 		/*
 		if(nums == null || nums.length == 0)
 			return new int[0];
@@ -31,7 +31,7 @@ public class DoublePointer {
 		return nums;
 		*/
 		
-		//����2����βָ��
+		//方法2：首尾指针
 		/*
 		if(nums == null || nums.length == 0)
 			return new int[0];
@@ -54,7 +54,7 @@ public class DoublePointer {
 		return nums;
 		*/
 		
-		//����3��ʹ��һ��������洢
+		//方法3：使用一个新数组存储
 		/*
 		int[] res = new int[nums.length];
 		int left = 0;
@@ -75,7 +75,7 @@ public class DoublePointer {
 		return res;
 		*/
 		
-		//����4�������չ��
+		//方法4：提高扩展性
 		int first = 0;
 		int last = nums.length-1;
 		while(first < last)
@@ -117,12 +117,12 @@ public class DoublePointer {
 	public ListNode getKthFromEnd(ListNode head, int k)
 	{
 		/*
-		 * ��ָ Offer 22. �����е�����k���ڵ�
-		 * ����һ������������������е�����k���ڵ㡣Ϊ�˷��ϴ�����˵�ϰ�ߣ������1��ʼ��������������β�ڵ��ǵ�����1���ڵ㡣
-		 * ���磬һ�������� 6 ���ڵ㣬��ͷ�ڵ㿪ʼ�����ǵ�ֵ������ 1��2��3��4��5��6��
-		 * ��������ĵ����� 3 ���ڵ���ֵΪ 4 �Ľڵ㡣
+		 * 剑指 Offer 22. 链表中倒数第k个节点
+		 * 输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
+		 * 例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。
+		 * 这个链表的倒数第 3 个节点是值为 4 的节点。
 		 */
-		//����1��ǰ��ָ��
+		//方法1：前后指针
 		if(head == null || k < 1)
 			return null;
 		ListNode former = head;
@@ -146,16 +146,16 @@ public class DoublePointer {
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB)
 	{
 		/*
-		 * ��ָ Offer 52. ���������ĵ�һ�������ڵ�
-		 * ���������������ҳ����ǵĵ�һ�������ڵ�
+		 * 剑指 Offer 52. 两个链表的第一个公共节点
+		 * 输入两个链表，找出它们的第一个公共节点
 		 * 
-		 * ˼·��
-		 * ����1��˫ָ��
-		 * ���������Ľ���֮�����нڵ㶼��һ���ģ�ֻ�н���֮ǰ�Ľڵ㲻ͬ��
-		 * ������ָ��ֱ��headA��headB�������������������������β��������һ����ͷ�ڵ��������������ָ������ʱ��Ϊ�ཻ�ڵ�
+		 * 思路：
+		 * 方法1：双指针
+		 * 两个链表的交点之后所有节点都是一样的，只有交点之前的节点不同。
+		 * 用两个指针分别从headA和headB出发遍历链表，如果到达链表尾则跳到另一链表头节点继续遍历，当两指针相遇时则为相交节点
 		 * 
-		 * ���裺
-		 * ��������������Ϊ��
+		 * 步骤：
+		 * 特例处理：输入为空
 		 * */
 		if(headA == null || headB == null)
 			return null;
@@ -180,12 +180,12 @@ public class DoublePointer {
 	public String reverseWords(String s)
 	{
 		/*
-		 * ��ָ Offer 58 - I. ��ת����˳��
-		 * ����һ��Ӣ�ľ��ӣ���ת�����е��ʵ�˳�򣬵��������ַ���˳�򲻱䡣Ϊ������������ź���ͨ��ĸһ��������
-		 * ���������ַ���"I am a student. "�������"student. a am I"��
+		 * 剑指 Offer 58 - I. 翻转单词顺序
+		 * 输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。
+		 * 例如输入字符串"I am a student. "，则输出"student. a am I"。
 		 * 
-		 * ˼·��
-		 * ����1��ǰ��ָ��
+		 * 思路：
+		 * 方法1：前后指针
 		 */
 		s = s.trim();
 		StringBuilder res = new StringBuilder();
@@ -195,14 +195,14 @@ public class DoublePointer {
 		{
 			while(former >= 0 && s.charAt(former) != ' ')
 				former--;
-			res.append(s.substring(former+1, latter+1) + ' ');	//latter+1��ԭ���Ӵ���ʼ��ָ��beginIndex�����쵽�ַ�����endIndex - 1
+			res.append(s.substring(former+1, latter+1) + ' ');	//latter+1的原因：子串开始于指定beginIndex并延伸到字符索引endIndex - 1
 			while(former >=0 && s.charAt(former) == ' ')
 			{
 				former--;
 			}
 			latter = former;
 		}
-		return res.toString().trim();	//ת��Ϊ�ַ�����ɾ��β���ո񣬲�����
+		return res.toString().trim();	//转化为字符串，删除尾部空格，并返回
 	}
 	
 	
@@ -210,25 +210,25 @@ public class DoublePointer {
 	public int lengthOfLongestSubstring(String s)
 	{
 		/*
-		 * ��ָ Offer 48. ������ظ��ַ������ַ���
-		 * ����ַ������ҳ�һ����Ĳ������ظ��ַ������ַ��������������ַ����ĳ��ȡ�
+		 * 剑指 Offer 48. 最长不含重复字符的子字符串
+		 * 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
 		 * 
-		 * ����1����̬�滮+��ϣ��
-		 * ״̬���壺dp(j)��Ϊ��s[j]��β������ظ��ַ����ĳ���
-		 * ״̬ת�ƣ��̶��ұ߽�j���ַ�s[j]����������ͬ�ַ�Ϊs[i]��s[i]=s[j]
-		 * 1����i<0����s[j]���û��������ͬ���ַ�
-		 * 2����dp(j-1)<j-i��˵��s[i]�����ַ���dp(j-1)������֮�⣬dp(j)=dp(j-1)+1
-		 * 3����dp(j-1)>=j-i��˵��s[i]�����ַ���dp(j-1)������֮�У�dp(j)=j-i
-		 * ����ֵ��max(dp)
+		 * 方法1：动态规划+哈希表
+		 * 状态定义：dp(j)记为以s[j]结尾的最长不重复字符串的长度
+		 * 状态转移：固定右边界j，字符s[j]左边最近的相同字符为s[i]，s[i]=s[j]
+		 * 1，当i<0，即s[j]左边没有与其相同的字符
+		 * 2，当dp(j-1)<j-i，说明s[i]在子字符串dp(j-1)的区间之外，dp(j)=dp(j-1)+1
+		 * 3，当dp(j-1)>=j-i，说明s[i]在子字符串dp(j-1)的区间之中，dp(j)=j-i
+		 * 返回值：max(dp)
 		 * 
-		 * �ù�ϣ��ͳ�Ƹ��ַ����һ�γ��ֵ�λ�á�
+		 * 用哈希表统计个字符最后一次出现的位置。
 		 * 
-		 * ���裺
+		 * 步骤：
 		 * 
-		 * ����2����̬�滮+���Ա���
-		 * ��j-1λ�õ������s[j]����������ͬ�ַ�
+		 * 方法2：动态规划+线性遍历
+		 * 从j-1位置倒序查找s[j]左边最近的相同字符
 		 * 
-		 * ����3��˫ָ��+��ϣ��
+		 * 方法3：双指针+哈希表
 		 * */
 		/*
 		if(s == null || s.length() <= 0)
@@ -238,7 +238,7 @@ public class DoublePointer {
 		for(int j = 0; j < s.length(); j++)
 		{
 			char ch = s.charAt(j);
-			int i = map.getOrDefault(ch, -1);	//��ȡ����
+			int i = map.getOrDefault(ch, -1);	//获取索引
 			map.put(ch, j);
 			if(dp < j - i)
 			{
@@ -252,7 +252,7 @@ public class DoublePointer {
 		}
 		return res;
 		*/
-		//����2����̬�滮+���Ա���
+		//方法2：动态规划+线性遍历
 		/*
 		if(s == null || s.length() <= 0)
 			return 0;
@@ -277,7 +277,7 @@ public class DoublePointer {
 		}
 		return res;
 		*/
-		//����3��˫ָ��+��ϣ��
+		//方法3：双指针+哈希表
 		if(s == null || s.length() <= 0)
 			return 0;
 		int i = -1, res = 0;

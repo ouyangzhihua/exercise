@@ -4,8 +4,8 @@ import java.util.*;
 
 public class BreathFirstSearch {
 	/*
-	 * ����������أ����Ĳ������ͨ����Ҫ�ù���������أ���Ҫ���ö��н���һ�������Ԫ���ȴ洢������Ȼ���ڶ�ÿ���ڵ�����
-	 * BFS ͨ������ ���� �������ȳ�������ʵ�֡�
+	 * 广度优先搜素：树的层序遍历通常需要用广度优先搜素，需要利用队列将下一层的所有元素先存储起来，然后在对每个节点搜索
+	 * BFS 通常借助 队列 的先入先出特性来实现。 
 	 * */
 	
 	class TreeNode 
@@ -18,8 +18,8 @@ public class BreathFirstSearch {
 	public int[] levelOrder(TreeNode root)
 	{
 		/*
-		 * ��ָ Offer 32 - I. ���ϵ��´�ӡ������
-		 * ���ϵ��´�ӡ����������ÿ���ڵ㣬ͬһ��Ľڵ㰴�մ����ҵ�˳���ӡ��
+		 * 剑指 Offer 32 - I. 从上到下打印二叉树
+		 * 从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
 		 * 
 		 * */
 		if(root == null)
@@ -52,18 +52,18 @@ public class BreathFirstSearch {
 	public List<List<Integer>> levelOrder2(TreeNode root) 
 	{
 		/*
-		 * ��ָ Offer 32 - II. ���ϵ��´�ӡ������ II
-		 * ���ϵ��°����ӡ��������ͬһ��Ľڵ㰴�����ҵ�˳���ӡ��ÿһ���ӡ��һ�С�
+		 * 剑指 Offer 32 - II. 从上到下打印二叉树 II
+		 * 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
 		 * 
-		 * ˼·��
-		 * ����1�������������
-		 * ÿһ���ӡһ�п���ͨ��������������ҵ�һ������нڵ㡣
-		 * �����������ͨ�����ö����Ƚ��ȳ�������ʵ��
+		 * 思路：
+		 * 方法1：广度优先搜索
+		 * 每一层打印一行可以通过广度优先搜索找到一层的所有节点。
+		 * 广度优先搜索通常利用队列先进先出的特性实现
 		 * 
-		 * ���裺
-		 * ����������root=null�����ؿ��б�
-		 * ��ʼ����
-		 * BFSѭ��������
+		 * 步骤：
+		 * 特例处理：root=null，返回空列表
+		 * 初始化：
+		 * BFS循环条件：
 		 * 
 		 * */	
 		List<List<Integer>> res = new ArrayList<>();
@@ -92,16 +92,16 @@ public class BreathFirstSearch {
 	public List<List<Integer>> levelOrder3(TreeNode root)
 	{
 		/*
-		 * ��ָ Offer 32 - III. ���ϵ��´�ӡ������ III
-		 * ��ʵ��һ����������֮����˳���ӡ������������һ�а��մ����ҵ�˳���ӡ���ڶ��㰴�մ��ҵ����˳���ӡ��
-		 * �������ٰ��մ����ҵ�˳���ӡ���������Դ����ơ�
+		 * 剑指 Offer 32 - III. 从上到下打印二叉树 III
+		 * 请实现一个函数按照之字形顺序打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，
+		 * 第三行再按照从左到右的顺序打印，其他行以此类推。
 		 * 
-		 * ˼·��
-		 * ����1���������+˫�˶���
+		 * 思路：
+		 * 方法1：层序遍历+双端队列
 		 * 
-		 * ����2��������� + ˫�˶��У���ż���߼����룩
+		 * 方法2：层序遍历 + 双端队列（奇偶层逻辑分离）
 		 * 
-		 * ����3��������� + ����
+		 * 方法3：层序遍历 + 倒序
 		 * */
 		List<List<Integer>> res = new ArrayList<>();
 		Queue<TreeNode> que = new LinkedList<>();
@@ -126,36 +126,36 @@ public class BreathFirstSearch {
 		}
 		return res;
 		
-		//����2��������� + ˫�˶��У���ż���߼����룩
+		//方法2：层序遍历 + 双端队列（奇偶层逻辑分离）
 		/*
 		Deque<TreeNode> deque = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
         if(root != null) deque.add(root);
         while(!deque.isEmpty()) 
         {
-            // ��ӡ������
+            // 打印奇数层
             List<Integer> tmp = new ArrayList<>();
             for(int i = deque.size(); i > 0; i--) 
             {
-                // �������Ҵ�ӡ
+                // 从左向右打印
                 TreeNode node = deque.removeFirst();
                 tmp.add(node.val);
-                // ������Ҽ����²�ڵ�
+                // 先左后右加入下层节点
                 if(node.left != null) 
                 	deque.addLast(node.left);
                 if(node.right != null) 
                 	deque.addLast(node.right);
             }
             res.add(tmp);
-            if(deque.isEmpty()) break; // ��Ϊ������ǰ����
-            // ��ӡż����
+            if(deque.isEmpty()) break; // 若为空则提前跳出
+            // 打印偶数层
             tmp = new ArrayList<>();
             for(int i = deque.size(); i > 0; i--) 
             {
-                // ���������ӡ
+                // 从右向左打印
                 TreeNode node = deque.removeLast();
                 tmp.add(node.val);
-                // ���Һ�������²�ڵ�
+                // 先右后左加入下层节点
                 if(node.right != null) 
                 	deque.addFirst(node.right);
                 if(node.left != null) 
@@ -166,7 +166,7 @@ public class BreathFirstSearch {
         return res;
 		*/
 		
-		//����3��������� + ����
+		//方法3：层序遍历 + 倒序
 		/*
         Queue<TreeNode> queue = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
@@ -194,8 +194,8 @@ public class BreathFirstSearch {
 	
 	//---------------------------------------------------------------------------------------
 	/*
-	 * ��ָ Offer 37. ���л�������
-	 * ��ʵ�������������ֱ��������л��ͷ����л���������
+	 * 剑指 Offer 37. 序列化二叉树
+	 * 请实现两个函数，分别用来序列化和反序列化二叉树。
 	 * */
 	public String serialize(TreeNode root)
 	{

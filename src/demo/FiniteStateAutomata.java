@@ -5,13 +5,13 @@ import java.util.*;
 public class FiniteStateAutomata {
 	
 	/*
-	 * ½£Ö¸ Offer 20. ±íÊ¾ÊýÖµµÄ×Ö·û´®
-	 * ÇëÊµÏÖÒ»¸öº¯ÊýÓÃÀ´ÅÐ¶Ï×Ö·û´®ÊÇ·ñ±íÊ¾ÊýÖµ£¨°üÀ¨ÕûÊýºÍÐ¡Êý£©¡£
-	 * ÀýÈç£¬×Ö·û´®"+100"¡¢"5e2"¡¢"-123"¡¢"3.1416"¡¢"-1E-16"¡¢"0123"¶¼±íÊ¾ÊýÖµ£¬
-	 * µ«"12e"¡¢"1a3.14"¡¢"1.2.3"¡¢"+-5"¼°"12e+5.4"¶¼²»ÊÇ¡£
+	 * å‰‘æŒ‡ Offer 20. è¡¨ç¤ºæ•°å€¼çš„å­—ç¬¦ä¸²
+	 * è¯·å®žçŽ°ä¸€ä¸ªå‡½æ•°ç”¨æ¥åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦è¡¨ç¤ºæ•°å€¼ï¼ˆåŒ…æ‹¬æ•´æ•°å’Œå°æ•°ï¼‰ã€‚
+	 * ä¾‹å¦‚ï¼Œå­—ç¬¦ä¸²"+100"ã€"5e2"ã€"-123"ã€"3.1416"ã€"-1E-16"ã€"0123"éƒ½è¡¨ç¤ºæ•°å€¼ï¼Œ
+	 * ä½†"12e"ã€"1a3.14"ã€"1.2.3"ã€"+-5"åŠ"12e+5.4"éƒ½ä¸æ˜¯ã€‚
 	 * 
-	 * Ë¼Â·£º
-	 * ·½·¨1£ºÈ·¶¨ÓÐÏÞ×´Ì¬×Ô¶¯»ú
+	 * æ€è·¯ï¼š
+	 * æ–¹æ³•1ï¼šç¡®å®šæœ‰é™çŠ¶æ€è‡ªåŠ¨æœº
 	 * 
 	 * */
     public boolean isNumber(String s) {
@@ -127,11 +127,11 @@ public class FiniteStateAutomata {
 	public int singleNumber(int[] nums)
 	{
 		/*
-		 * ½£Ö¸ Offer 56 - II. Êý×éÖÐÊý×Ö³öÏÖµÄ´ÎÊý II
-		 * ÔÚÒ»¸öÊý×é nums ÖÐ³ýÒ»¸öÊý×ÖÖ»³öÏÖÒ»´ÎÖ®Íâ£¬ÆäËûÊý×Ö¶¼³öÏÖÁËÈý´Î¡£ÇëÕÒ³öÄÇ¸öÖ»³öÏÖÒ»´ÎµÄÊý×Ö¡£
+		 * å‰‘æŒ‡ Offer 56 - II. æ•°ç»„ä¸­æ•°å­—å‡ºçŽ°çš„æ¬¡æ•° II
+		 * åœ¨ä¸€ä¸ªæ•°ç»„ nums ä¸­é™¤ä¸€ä¸ªæ•°å­—åªå‡ºçŽ°ä¸€æ¬¡ä¹‹å¤–ï¼Œå…¶ä»–æ•°å­—éƒ½å‡ºçŽ°äº†ä¸‰æ¬¡ã€‚è¯·æ‰¾å‡ºé‚£ä¸ªåªå‡ºçŽ°ä¸€æ¬¡çš„æ•°å­—ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£ºÓÐÏÞ×´Ì¬×Ô¶¯»ú
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šæœ‰é™çŠ¶æ€è‡ªåŠ¨æœº
 		 * */
 		int ones = 0, twos = 0;
 		for(int num:nums)

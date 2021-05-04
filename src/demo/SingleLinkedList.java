@@ -1,5 +1,5 @@
 /*
- *µ¥ÏòÁ´±í
+ *å•å‘é“¾è¡¨
  * 
  */
 
@@ -9,7 +9,7 @@ import java.util.*;
 
 public class SingleLinkedList
 {
-	class Node	//defaultÀà
+	class Node	//defaultç±»
 	{
 		String name;
 		int score;
@@ -24,7 +24,7 @@ public class SingleLinkedList
 		}
 	}
 	
-	private Node first;	//´´½¨½Úµã
+	private Node first;	//åˆ›å»ºèŠ‚ç‚¹
 	private Node last;
 	public boolean isEmpty()
 	{
@@ -46,7 +46,7 @@ public class SingleLinkedList
 		}
 	}
 	
-	//insertNode·½·¨ÖØÔØ
+	//insertNodeæ–¹æ³•é‡è½½
 	public void insertNode(Node inNo)
 	{
 		Node temp;
@@ -119,14 +119,14 @@ public class SingleLinkedList
 		Node current = first;
 		while(current != null)
 		{
-			//Á´±íµÄ´òÓ¡ÎªÊ²Ã´ÊÇ·´µÄ£¿
+			//é“¾è¡¨çš„æ‰“å°ä¸ºä»€ä¹ˆæ˜¯åçš„ï¼Ÿ
 			System.out.println("["+current.np+" "+current.name+" "+current.score+"]");
 			current = current.next;
 		}
 	}
 	
 	
-	//Á´±íµÄ·´×ª
+	//é“¾è¡¨çš„åè½¬
 	public void reverseLinkedList()
 	{
 		Node current = first;
@@ -142,7 +142,7 @@ public class SingleLinkedList
 		
 	}
 	
-	//Á´±íµÄ¼¶Áª£ºÁ½¸ö»òÒÔÉÏÁ´±íµÄÁ¬½Ó
+	//é“¾è¡¨çš„çº§è”ï¼šä¸¤ä¸ªæˆ–ä»¥ä¸Šé“¾è¡¨çš„è¿æ¥
 	public void concLinkedList(SingleLinkedList head1,SingleLinkedList head2)
 	{
 		SingleLinkedList temp = head1;
@@ -153,20 +153,20 @@ public class SingleLinkedList
 	
 	public static void main(String[] args) throws IOException
 	{
-		//²åÈëÁ´±í½Úµã
+		//æ’å…¥é“¾è¡¨èŠ‚ç‚¹
 		/*
 		BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
-		System.out.print("input students' total£º");
+		System.out.print("input students' totalï¼š");
 		int total = Integer.parseInt(buf.readLine());
-		System.out.println("input " + total + " students' data£º");
+		System.out.println("input " + total + " students' dataï¼š");
 		SingleLinkedList list = new SingleLinkedList();
-		for(int i = 1; i < total+1; i++)	//Ìí¼ÓÊı¾İ£¬½¨Á¢Á´±í
+		for(int i = 1; i < total+1; i++)	//æ·»åŠ æ•°æ®ï¼Œå»ºç«‹é“¾è¡¨
 		{
-			System.out.print("input "+i+"th"+" student's name£º");
+			System.out.print("input "+i+"th"+" student's nameï¼š");
 			String name = buf.readLine();
-			System.out.print("input "+i+"th"+" student's np£º");
+			System.out.print("input "+i+"th"+" student's npï¼š");
 			int np = Integer.parseInt(buf.readLine());
-			System.out.print("input "+i+"th"+" student's score£º");
+			System.out.print("input "+i+"th"+" student's scoreï¼š");
 			int score = Integer.parseInt(buf.readLine());
 			list.insertNode(np, name, score);
 			System.out.println("------------");
@@ -175,7 +175,7 @@ public class SingleLinkedList
 		list.print();
 		*/
 		
-		//É¾³ıÁ´±í½Úµã
+		//åˆ é™¤é“¾è¡¨èŠ‚ç‚¹
 		/*
 		BufferedReader buf;
 		Random rand=new Random();
@@ -183,7 +183,7 @@ public class SingleLinkedList
 		SingleLinkedList list =new SingleLinkedList();
 		int i,j,findnp=0,data[][]=new int[12][10];
 		String name[]=new String[] {"Allen","Scott","Marry","Jon","Mark","Ricky","Lisa","Jasica","Hanson","Amy","Bob","Jack"};
-		System.out.println("Ñ§ºÅ   ³É¼¨    Ñ§ºÅ    ³É¼¨    Ñ§ºÅ    ³É¼¨    Ñ§ºÅ   ³É¼¨\n ");
+		System.out.println("å­¦å·   æˆç»©    å­¦å·    æˆç»©    å­¦å·    æˆç»©    å­¦å·   æˆç»©\n ");
 	    for (i=0;i<12;i++)
 	    {
 		   data[i][0]=i+1;
@@ -214,7 +214,7 @@ public class SingleLinkedList
 		}
 		*/
 		
-		//·´×ª´òÓ¡Á´±í
+		//åè½¬æ‰“å°é“¾è¡¨
 		Random rand=new Random();
 		SingleLinkedList list =new SingleLinkedList();
 		int i,data[][]=new int[12][10];

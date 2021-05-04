@@ -10,24 +10,24 @@ public class Hash {
 	public char firstUniqChar(String s)
 	{
 		/*
-		 * ��ָ Offer 50. ��һ��ֻ����һ�ε��ַ�
-		 * ���ַ��� s ���ҳ���һ��ֻ����һ�ε��ַ������û�У�����һ�����ո� s ֻ����Сд��ĸ��
+		 * 剑指 Offer 50. 第一个只出现一次的字符
+		 * 在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
 		 * 
-		 * ˼·��
-		 * ����1��ʹ�ù�ϣ���洢Ƶ��
+		 * 思路：
+		 * 方法1：使用哈希表存储频数
 		 * 
-		 * ����2��ʹ�ù�ϣ���洢����
+		 * 方法2：使用哈希表存储索引
 		 * 
 		 * 
 		 * */
 		
-		//����1��ʹ�ù�ϣ���洢Ƶ��
+		//方法1：使用哈希表存储频数
 		/*
 		Map<Character, Integer> fre = new HashMap<Character, Integer>();
 		for(int i = 0; i < s.length(); i++)
 		{
 			char ch = s.charAt(i);
-			fre.put(ch, fre.getOrDefault(ch, 0)+1);		//getOrDefault() ������ȡָ�� key ��Ӧ�� value������Ҳ��� key ���򷵻����õ�Ĭ��ֵ��
+			fre.put(ch, fre.getOrDefault(ch, 0)+1);		//getOrDefault() 方法获取指定 key 对应对 value，如果找不到 key ，则返回设置的默认值。
 		}
 		for(int i = 0; i < s.length(); i++)
 		{
@@ -37,7 +37,7 @@ public class Hash {
 		return ' ' ;
 		*/
 		
-		//����2��ʹ�ù�ϣ���洢����
+		//方法2：使用哈希表存储索引
 		Map<Character, Integer> pos = new HashMap<>();
 		for(int i = 0; i < s.length(); i++)
 		{
@@ -51,7 +51,7 @@ public class Hash {
 		for(Map.Entry<Character, Integer> entry:pos.entrySet())
 		{
 			int p = entry.getValue();
-			if(p != -1 && p < first)		//�ҳ�����ֵ��С��
+			if(p != -1 && p < first)		//找出索引值最小的
 				first = p;
 		}
 		return first==s.length() ? ' ' : s.charAt(first);
@@ -63,18 +63,18 @@ public class Hash {
 	public boolean isStraight(int[] nums)
 	{
 		/*
-		 * ��ָ Offer 61. �˿����е�˳��
-		 * ���˿����������5���ƣ��ж��ǲ���һ��˳�ӣ�����5�����ǲ��������ġ�2��10Ϊ���ֱ�����AΪ1��JΪ11��QΪ12��KΪ13��
-		 * ����С��Ϊ 0 �����Կ����������֡�A ������Ϊ 14��
+		 * 剑指 Offer 61. 扑克牌中的顺子
+		 * 从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，
+		 * 而大、小王为 0 ，可以看成任意数字。A 不能视为 14。
 		 * 
-		 * ˼·��
-		 * ����1������+����
-		 * 5�������������-��С<5����û���ظ����������ڴ�С������ʱ�κ��������Ȳ�ͳ��
+		 * 思路：
+		 * 方法1：集合+遍历
+		 * 5张牌连续则最大-最小<5，且没有重复的数。由于大小王可以时任何数，可先不统计
 		 * 
-		 * ����2������+����
+		 * 方法2：排序+遍历
 		 * */
 		
-		//����1������+����
+		//方法1：集合+遍历
 		if(nums == null || nums.length < 5)
 			return false;
 		int max = 0;
@@ -111,17 +111,17 @@ public class Hash {
 	public Node copyRandomList(Node head)
 	{
 		/*
-		 * ��ָ Offer 35. ���������ĸ���
-		 * ��ʵ�� copyRandomList ����������һ�������������ڸ��������У�ÿ���ڵ������һ�� next ָ��ָ����һ���ڵ㣬
-		 * ����һ�� random ָ��ָ�������е�����ڵ���� null
+		 * 剑指 Offer 35. 复杂链表的复制
+		 * 请实现 copyRandomList 函数，复制一个复杂链表。在复杂链表中，每个节点除了有一个 next 指针指向下一个节点，
+		 * 还有一个 random 指针指向链表中的任意节点或者 null
 		 * 
-		 * ˼·��
-		 * ����1����ϣ��
+		 * 思路：
+		 * 方法1：哈希表
 		 * 
-		 * ����2��ƴ�� + ���
+		 * 方法2：拼接 + 拆分
 		 * 
 		 * */
-		//����1����ϣ��
+		//方法1：哈希表
 		/*
 		if(head == null)
 			return null;
@@ -141,7 +141,7 @@ public class Hash {
 		}
 		return map.get(head);
 		*/
-		//����2��ƴ�� + ���
+		//方法2：拼接 + 拆分
 		if(head == null)
 			return null;
 		Node cur = head;
@@ -177,25 +177,25 @@ public class Hash {
 	public int lengthOfLongestSubstring(String s)
 	{
 		/*
-		 * ��ָ Offer 48. ������ظ��ַ������ַ���
-		 * ����ַ������ҳ�һ����Ĳ������ظ��ַ������ַ��������������ַ����ĳ��ȡ�
+		 * 剑指 Offer 48. 最长不含重复字符的子字符串
+		 * 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
 		 * 
-		 * ����1����̬�滮+��ϣ��
-		 * ״̬���壺dp(j)��Ϊ��s[j]��β������ظ��ַ����ĳ���
-		 * ״̬ת�ƣ��̶��ұ߽�j���ַ�s[j]����������ͬ�ַ�Ϊs[i]��s[i]=s[j]
-		 * 1����i<0����s[j]���û��������ͬ���ַ�
-		 * 2����dp(j-1)<j-i��˵��s[i]�����ַ���dp(j-1)������֮�⣬dp(j)=dp(j-1)+1
-		 * 3����dp(j-1)>=j-i��˵��s[i]�����ַ���dp(j-1)������֮�У�dp(j)=j-i
-		 * ����ֵ��max(dp)
+		 * 方法1：动态规划+哈希表
+		 * 状态定义：dp(j)记为以s[j]结尾的最长不重复字符串的长度
+		 * 状态转移：固定右边界j，字符s[j]左边最近的相同字符为s[i]，s[i]=s[j]
+		 * 1，当i<0，即s[j]左边没有与其相同的字符
+		 * 2，当dp(j-1)<j-i，说明s[i]在子字符串dp(j-1)的区间之外，dp(j)=dp(j-1)+1
+		 * 3，当dp(j-1)>=j-i，说明s[i]在子字符串dp(j-1)的区间之中，dp(j)=j-i
+		 * 返回值：max(dp)
 		 * 
-		 * �ù�ϣ��ͳ�Ƹ��ַ����һ�γ��ֵ�λ�á�
+		 * 用哈希表统计个字符最后一次出现的位置。
 		 * 
-		 * ���裺
+		 * 步骤：
 		 * 
-		 * ����2����̬�滮+���Ա���
-		 * ��j-1λ�õ������s[j]����������ͬ�ַ�
+		 * 方法2：动态规划+线性遍历
+		 * 从j-1位置倒序查找s[j]左边最近的相同字符
 		 * 
-		 * ����3��˫ָ��+��ϣ��
+		 * 方法3：双指针+哈希表
 		 * */
 		/*
 		if(s == null || s.length() <= 0)
@@ -205,7 +205,7 @@ public class Hash {
 		for(int j = 0; j < s.length(); j++)
 		{
 			char ch = s.charAt(j);
-			int i = map.getOrDefault(ch, -1);	//��ȡ����
+			int i = map.getOrDefault(ch, -1);	//获取索引
 			map.put(ch, j);
 			if(dp < j - i)
 			{
@@ -219,7 +219,7 @@ public class Hash {
 		}
 		return res;
 		*/
-		//����2����̬�滮+���Ա���
+		//方法2：动态规划+线性遍历
 		/*
 		if(s == null || s.length() <= 0)
 			return 0;
@@ -244,7 +244,7 @@ public class Hash {
 		}
 		return res;
 		*/
-		//����3��˫ָ��+��ϣ��
+		//方法3：双指针+哈希表
 		if(s == null || s.length() <= 0)
 			return 0;
 		int i = -1, res = 0;

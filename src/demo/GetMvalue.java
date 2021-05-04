@@ -1,7 +1,7 @@
 /* 
-ÈÎÎñ£ºÕÒµ½Êı×éÖĞµÄ×îÖµ
-Ë¼Â·£º
-²½Öè£º
+ä»»åŠ¡ï¼šæ‰¾åˆ°æ•°ç»„ä¸­çš„æœ€å€¼
+æ€è·¯ï¼š
+æ­¥éª¤ï¼š
 */
 package demo;
 
@@ -10,7 +10,7 @@ public class GetMvalue
 	public int getMax(int[] arr)
 	{
 		/*
-		 * »ñÈ¡×î´óÖµ
+		 * è·å–æœ€å¤§å€¼
 		 */
 		int max = arr[0];
 		for(int i = 1; i < arr.length; i++)
@@ -22,7 +22,7 @@ public class GetMvalue
 	}
 	
 	/*
-	 * »ñÈ¡×îÖµµÄÁíÒ»ÖÖ·½Ê½£º³õÊ¼»¯Êı×é½Ç±ê£¬´ËÊ±¿ÉÒÔ½«ÁÙÊ±±äÁ¿³õÊ¼»¯Îª0
+	 * è·å–æœ€å€¼çš„å¦ä¸€ç§æ–¹å¼ï¼šåˆå§‹åŒ–æ•°ç»„è§’æ ‡ï¼Œæ­¤æ—¶å¯ä»¥å°†ä¸´æ—¶å˜é‡åˆå§‹åŒ–ä¸º0
 	 */
 	public int getMax_2(int[] arr)
 	{
@@ -38,7 +38,7 @@ public class GetMvalue
 	public int getMin(int[] arr)
 	{
 		/*
-		 * »ñÈ¡×îĞ¡Öµ
+		 * è·å–æœ€å°å€¼
 		 */
 		int min = arr[0];
 		for(int i = 1; i < arr.length; i++)
@@ -49,7 +49,7 @@ public class GetMvalue
 		return min;
 	}
 	
-	/*¶şÎ¬Êı×é²éÕÒ,ÓëÇ°ÃæÒ»Î¬Êı×é²éÕÒ·½·¨ÖØÔØ*/
+	/*äºŒç»´æ•°ç»„æŸ¥æ‰¾,ä¸å‰é¢ä¸€ç»´æ•°ç»„æŸ¥æ‰¾æ–¹æ³•é‡è½½*/
 	public int getMax(int[][] arr)
 	{
 		int max = arr[0][0];

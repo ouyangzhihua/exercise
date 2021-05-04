@@ -16,7 +16,7 @@ public class BinarySearch {
 	 * 若target > nums[pivot], low = pivot + 1
 	 * 若target = nums[pivot],返回true
 	 * 
-	 * 复杂度分析：
+	 * 复杂度分析： 
 	 * */
 	
 	public int minArray(int[] nums) 

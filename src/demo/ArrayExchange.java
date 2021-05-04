@@ -5,19 +5,19 @@ public class ArrayExchange {
 	public int[] exchange(int[] nums)
 	{
 		/*
-		 * ½£Ö¸ Offer 21. µ÷ÕûÊý×éË³ÐòÊ¹ÆæÊýÎ»ÓÚÅ¼ÊýÇ°Ãæ
-		 * ÊäÈëÒ»¸öÕûÊýÊý×é£¬ÊµÏÖÒ»¸öº¯ÊýÀ´µ÷Õû¸ÃÊý×éÖÐÊý×ÖµÄË³Ðò£¬Ê¹µÃËùÓÐÆæÊýÎ»ÓÚÊý×éµÄÇ°°ë²¿·Ö£¬ËùÓÐÅ¼ÊýÎ»ÓÚÊý×éµÄºó°ë²¿·Ö¡£
+		 * å‰‘æŒ‡ Offer 21. è°ƒæ•´æ•°ç»„é¡ºåºä½¿å¥‡æ•°ä½äºŽå¶æ•°å‰é¢
+		 * è¾“å…¥ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼Œå®žçŽ°ä¸€ä¸ªå‡½æ•°æ¥è°ƒæ•´è¯¥æ•°ç»„ä¸­æ•°å­—çš„é¡ºåºï¼Œä½¿å¾—æ‰€æœ‰å¥‡æ•°ä½äºŽæ•°ç»„çš„å‰åŠéƒ¨åˆ†ï¼Œæ‰€æœ‰å¶æ•°ä½äºŽæ•°ç»„çš„åŽåŠéƒ¨åˆ†ã€‚
 		 * 
-		 * Ë¼Â·£º
-		 * ·½·¨1£º¿ìÂýÖ¸Õë
+		 * æ€è·¯ï¼š
+		 * æ–¹æ³•1ï¼šå¿«æ…¢æŒ‡é’ˆ
 		 * 
-		 * ·½·¨2£ºÊ×Î²Ö¸Õë
+		 * æ–¹æ³•2ï¼šé¦–å°¾æŒ‡é’ˆ
 		 * 
-		 * ·½·¨3£ºÊ¹ÓÃÒ»¸öÐÂÊý×é´æ´¢
+		 * æ–¹æ³•3ï¼šä½¿ç”¨ä¸€ä¸ªæ–°æ•°ç»„å­˜å‚¨
 		 * 
-		 * ·½·¨4£ºÌá¸ßÀ©Õ¹ÐÔ£º½«ÅÐ¶ÏÊÇÊôÓÚÊý×éÇ°²¿·Ö»¹ÊÇºó²¿·ÖµÄÂß¼­³éÏó³öÀ´
+		 * æ–¹æ³•4ï¼šæé«˜æ‰©å±•æ€§ï¼šå°†åˆ¤æ–­æ˜¯å±žäºŽæ•°ç»„å‰éƒ¨åˆ†è¿˜æ˜¯åŽéƒ¨åˆ†çš„é€»è¾‘æŠ½è±¡å‡ºæ¥
 		 * */
-		//·½·¨1
+		//æ–¹æ³•1
 		/*
 		for(int i = 0; i < nums.length-1; i++)
 		{
@@ -39,7 +39,7 @@ public class ArrayExchange {
 		*/
 		
 		
-		//·½·¨2£ºÊ×Î²Ö¸Õë
+		//æ–¹æ³•2ï¼šé¦–å°¾æŒ‡é’ˆ
 		/*
 		int first = 0;
 		int last = nums.length-1;
@@ -63,7 +63,7 @@ public class ArrayExchange {
 		*/
 		
 		/*
-		//·½·¨3£ºÊ¹ÓÃÒ»¸öÐÂÊý×é´æ´¢
+		//æ–¹æ³•3ï¼šä½¿ç”¨ä¸€ä¸ªæ–°æ•°ç»„å­˜å‚¨
 		int[] res = new int[nums.length];
 		int left = 0;
 		int right = nums.length-1;
@@ -83,7 +83,7 @@ public class ArrayExchange {
 		return res;
 		*/
 		
-		//·½·¨4£ºÌá¸ßÀ©Õ¹ÐÔ
+		//æ–¹æ³•4ï¼šæé«˜æ‰©å±•æ€§
 		int first = 0;
 		int last = nums.length-1;
 		while(first < last)
