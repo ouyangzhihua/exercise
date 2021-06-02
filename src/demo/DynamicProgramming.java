@@ -7,6 +7,7 @@ public class DynamicProgramming
 	/*
 	 * 动态规划：动态规划的一般问题形式就是求最值，求解动态规划的核心问题就是穷举。动态规划的穷举存在重叠子问题。
 	 * 
+	 * 
 	 * */
 	public int cuttingRope(int n)
 	{
