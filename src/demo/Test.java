@@ -1,13 +1,19 @@
 package demo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Test {
-	private static int res = 0;
-	
 	
 	public static void main(String[] args)
 	{
 		
-		char[] arr = new char[2];
-		System.out.println(arr[1]=='\u0000');
+		Map<Character, Character> dic = new HashMap<>();
+		
+			dic.put('(', ')');
+			dic.put('[', ']');
+			dic.put('{', '}');
+		
+		System.out.println(dic);
 	}
 }
